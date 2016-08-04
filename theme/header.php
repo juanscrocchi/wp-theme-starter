@@ -15,8 +15,6 @@
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-	
-	<title><?php wp_title(); ?></title>
 
 	<?php // replace the no-js class with js on the html element ?>
 	<script>document.documentElement.className=document.documentElement.className.replace(/\bno-js\b/,'js')</script>

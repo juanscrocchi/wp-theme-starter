@@ -55,6 +55,9 @@ if ( ! function_exists( 'theme_setup' ) ) {
 		add_theme_support( 'post-thumbnails' );
 		*/
 
+		// Add WP 4.1 title tag support
+		add_theme_support( 'title-tag' );
+
 		// Add Custom Logo Support.
 		/*
 		add_theme_support( 'custom-logo', array(
