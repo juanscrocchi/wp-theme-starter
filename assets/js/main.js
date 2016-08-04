@@ -5,31 +5,31 @@
  *
  */
 import './vendor/webpack.publicPath';
-/* eslint no-extra-semi: 0 */
+
 /**
  * Import
  * fonts
  *
  */
-import '../fonts/**/*.{eot,otf,ttf,woff,woff2,svg}';
+import 'glob:../fonts/**/*.{eot,otf,ttf,woff,woff2,svg}';
 /**
  * Import
  * images
  *
  */
-import '../img/**/*.{gif,ico,jpg,jpeg,png,webp}';
+import 'glob:../img/**/*.{gif,ico,jpg,jpeg,png,webp}';
 /**
  * Import
  * sass
  *
  */
-import '../scss/*.scss';
+import 'glob:../scss/*.scss';
 /**
  * Import
  * svgs
  *
  */
-import '../svg/**/*.svg!../svg/sprite/**/*.svg';
+import 'glob:../svg/**/*.svg!../svg/sprite/**/*.svg';
 
 /**
  * Your theme's js starts

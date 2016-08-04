@@ -94,7 +94,7 @@ module.exports = deepMerge({
 								/vendor/,
 								/polyfills/
 							],
-							loader: 'eslint!import-glob'
+							loader: 'eslint'
 						}
 					],
 					loaders: [
@@ -108,7 +108,7 @@ module.exports = deepMerge({
 							loader: 'babel',
 							query: {
 								presets: ['es2015', 'stage-2'],
-								plugins: ['transform-runtime']
+								plugins: ['transform-runtime', 'import-glob']
 							}
 						}
 					]
