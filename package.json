@@ -17,7 +17,8 @@
   ],
   "scripts": {
     "dev": "gulp",
-    "prod": "gulp build"
+    "prod": "gulp build",
+    "bower": "bower"
   },
   "engines": {
     "node": ">=5.0.0"
