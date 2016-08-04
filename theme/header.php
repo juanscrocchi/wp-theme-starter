@@ -20,7 +20,7 @@
 	<script>document.documentElement.className=document.documentElement.className.replace(/\bno-js\b/,'js')</script>
 
 	<?php // load the core js polyfills ?>
-	<script async defer src="<?php echo get_template_directory_uri(); ?>/assets/js/core.js"></script>
+	<script async defer src="<?php echo esc_url_raw( get_template_directory_uri() ); ?>/assets/js/core.js"></script>
 
 	<?php wp_head(); ?>
 </head>
