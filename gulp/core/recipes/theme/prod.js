@@ -1,6 +1,8 @@
 var gulp         = require('gulp');
 var plumber      = require('gulp-plumber');
 var add          = require('gulp-add');
+var filter       = require('gulp-filter');
+var replace      = require('gulp-replace-task');
 var notify       = require('gulp-notify');
 
 // utils
@@ -12,6 +14,7 @@ var config       = require('../../config/theme');
 
 // templates
 var style        = require('../../templates/wordpress-style-css.js');
+var phpHeaders   = require('../../templates/wordpress-php-headers.js');
 
 
 /**
@@ -22,8 +25,24 @@ var style        = require('../../templates/wordpress-style-css.js');
  * @returns {*}
  */
 module.exports = function () {
+	var filterPHP  = filter('**/*.php', { restore: true });
+
 	return gulp.src(config.paths.src)
 		.pipe(plumber())
+
+		.pipe(filterPHP) // Filter php files and transform
+		                 // them to simply include the file
+		                 // from the dev theme. This is to
+		                 // make it possible to debug php from
+		                 // within the dev theme
+		.pipe(replace({
+			patterns: [
+				{
+					json: phpHeaders
+				}
+			]
+		}))
+		.pipe(filterPHP.restore)
 
 		.pipe(add({
 			'.gitignore': '*',
