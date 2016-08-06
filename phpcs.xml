@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ruleset name="PHP_CodeSniffer">
+	<description>The coding standard for wp-theme-starter.</description>
+
+	<file>./theme/</file>
+
+	<arg name="warning-severity" value="0"/>
+
+	<rule ref="WordPress">
+		<!-- This project needs commented code in block comments, so no enforcing of capital -->
+		<exclude name="Squiz.Commenting.BlockComment.NoCapital" />
+	</rule>
+	<rule ref="Wordpress-Extra">
+		<!-- This project doesnt use wordpress.com functions -->
+		<exclude name="WordPress.VIP.RestrictedFunctions.get_term_link" />
+	</rule>
+</ruleset>
