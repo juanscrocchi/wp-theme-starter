@@ -3,11 +3,12 @@
  * Footer file common to all
  * templates
  *
+ * @package @@name
  */
+
 ?>
 
-
-<?php // common footer content goes here ?>
+<?php // Common footer content goes here. ?>
 
 
 
@@ -16,3 +17,4 @@
 <?php // </body> opens in header.php ?>
 </body>
 </html>
+<?php

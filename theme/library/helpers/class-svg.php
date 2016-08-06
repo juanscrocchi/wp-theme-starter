@@ -4,8 +4,8 @@
  * in your theme
  *
  * @author Max G J Panas <http://maxpanas.com>
+ * @package @@name
  */
-
 
 /**
  * Class MOZ_SVG
@@ -17,7 +17,7 @@ class MOZ_SVG {
 	 * Get a given svg's
 	 * markup
 	 *
-	 * @param $filename
+	 * @param string $filename The name of an svg file in corresponding folder.
 	 *
 	 * @return string
 	 */
@@ -32,10 +32,34 @@ class MOZ_SVG {
 	 * Print a given svg's
 	 * markup
 	 *
-	 * @param $filename
+	 * @param string $filename The name of an svg file in corresponding folder.
 	 */
 	public static function svg( $filename ) {
-		echo self::get_svg( $filename );
+		echo wp_kses( self::get_svg( $filename ), array(
+			'svg' => array(
+				'width' => array(),
+				'height' => array(),
+				'viewbox' => array(),
+				'version' => array(),
+				'xmlns' => array(),
+				'xmlns:xlink' => array(),
+				'xlink:href' => array(),
+			),
+			'g' => array(
+				'stroke' => array(),
+				'stroke-width' => array(),
+				// 'fill' => array(),
+				'fill-rule' => array(),
+			),
+			'path' => array(
+				'd' => array(),
+				'id' => array(),
+			),
+			'use', array(
+				'xmlns:xlink' => '',
+				'xlink:href'  => '',
+			),
+		));
 	}
 
 
@@ -43,9 +67,9 @@ class MOZ_SVG {
 	 * Get the markup for an
 	 * svg sprite icon
 	 *
-	 * @param string $icon  The id of the icon to show (without the `icon-` prefix)
-	 * @param array  $attrs Attributes for the `svg` element
-	 * @param string $alt   Accessible alternative text for the icon (https://gist.github.com/davidhund/564331193e1085208d7e#gistcomment-1587234)
+	 * @param string $icon  The id of the icon to show (without the `icon-` prefix).
+	 * @param array  $attrs Attributes for the `svg` element.
+	 * @param string $alt   Accessible alternative text for the icon (https://gist.github.com/.davidhund/564331193e1085208d7e#gistcomment-1587234).
 	 *
 	 * @return string
 	 */
@@ -59,7 +83,7 @@ class MOZ_SVG {
 
 		$content = MOZ_Html::get_element( 'use', array(
 			'xmlns:xlink' => 'http://www.w3.org/1999/xlink',
-			'xlink:href'  => "#icon-$icon"
+			'xlink:href'  => "#icon-$icon",
 		) );
 
 		if ( $alt ) {
@@ -74,11 +98,35 @@ class MOZ_SVG {
 	 * Print the markup for an
 	 * svg sprite icon
 	 *
-	 * @param string $icon  The id of the icon to show (without the `icon-` prefix)
-	 * @param array  $attrs Attributes for the `svg` element
-	 * @param string $alt   Accessible alternative text for the icon (https://gist.github.com/davidhund/564331193e1085208d7e#gistcomment-1587234)
+	 * @param string $icon  The id of the icon to show (without the `icon-` prefix).
+	 * @param array  $attrs Attributes for the `svg` element.
+	 * @param string $alt   Accessible alternative text for the icon (https://gist.github.com/davidhund/564331193e1085208d7e#gistcomment-1587234).
 	 */
 	public static function icon( $icon, $attrs = array(), $alt = '' ) {
-		echo self::get_icon( $icon, $attrs, $alt );
+		echo wp_kses( self::get_icon( $icon, $attrs, $alt ), array(
+			'svg' => array(
+				'width' => array(),
+				'height' => array(),
+				'viewbox' => array(),
+				'version' => array(),
+				'xmlns' => array(),
+				'xmlns:xlink' => array(),
+				'xlink:href' => array(),
+			),
+			'g' => array(
+				'stroke' => array(),
+				'stroke-width' => array(),
+				// 'fill' => array(),
+				'fill-rule' => array(),
+			),
+			'path' => array(
+				'd' => array(),
+				'id' => array(),
+			),
+			'use', array(
+				'xmlns:xlink' => '',
+				'xlink:href'  => '',
+			),
+		));
 	}
 }

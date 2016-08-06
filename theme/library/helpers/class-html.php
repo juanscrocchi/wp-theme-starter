@@ -3,14 +3,11 @@
  * WordPress HTML Helpers
  *
  * @author Max G J Panas <http://maxpanas.com>
+ * @package @@name
  */
-
-
 
 /**
  * Class MOZ_Html
- *
- *
  */
 class MOZ_Html {
 
@@ -20,8 +17,8 @@ class MOZ_Html {
 	 * element constructed
 	 * by php
 	 *
-	 * @param string $tag
-	 * @param array  $attrs
+	 * @param string $tag   Html tag.
+	 * @param array  $attrs Html element attributes.
 	 *
 	 * @return string
 	 */
@@ -42,13 +39,11 @@ class MOZ_Html {
 	 * element constructed
 	 * by php
 	 *
-	 * @param string $tag
-	 * @param array  $attrs
-	 *
-	 * @return string
+	 * @param string $tag   Html tag.
+	 * @param array  $attrs Html element attributes.
 	 */
 	static function sc_element( $tag = 'img', $attrs = array() ) {
-		echo self::get_sc_element( $tag, $attrs );
+		echo wp_kses( self::get_sc_element( $tag, $attrs ), wp_kses_allowed_html( 'post' ) );
 	}
 
 
@@ -57,9 +52,9 @@ class MOZ_Html {
 	 * element constructed
 	 * by php
 	 *
-	 * @param string $tag
-	 * @param array  $attrs
-	 * @param string $content
+	 * @param string $tag     Html tag.
+	 * @param array  $attrs   Html element attributes.
+	 * @param string $content Html element content.
 	 *
 	 * @return string
 	 */
@@ -79,13 +74,11 @@ class MOZ_Html {
 	 * element constructed
 	 * by php
 	 *
-	 * @param string $tag
-	 * @param array  $attrs
-	 * @param string $content
-	 *
-	 * @return string
+	 * @param string $tag     Html tag.
+	 * @param array  $attrs   Html element attributes.
+	 * @param string $content Html element content.
 	 */
 	static function element( $tag = 'div', $attrs = array(), $content = '' ) {
-		echo self::get_element( $tag, $attrs, $content );
+		echo wp_kses( self::get_element( $tag, $attrs, $content ), wp_kses_allowed_html( 'post' ) );
 	}
 }

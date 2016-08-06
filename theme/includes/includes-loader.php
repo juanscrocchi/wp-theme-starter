@@ -7,15 +7,16 @@
  * 2. In the file write a class like: MInc_Banner_Controller
  * 3. The class will be autoloaded when called (no need to require/include), eg:
  *    `new MInc_Banner_Controller();` or `MInc_Banner_Controller::get_title();`
+ *
+ * @package @@name
  */
 
-
-// make sure this file is called by wp
+// Make sure this file is called by wp.
 defined( 'ABSPATH' ) or die();
 
 
 // Register the class autoloader for
-// the mozaik library
+// the mozaik library.
 spl_autoload_register( function ( $class ) {
 	$prefix = 'MInc_';
 

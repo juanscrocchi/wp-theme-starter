@@ -5,12 +5,11 @@
  * conventions
  *
  * @author Max G J Panas <http://maxpanas.com>
+ * @package @@name
  */
-
 
 /**
  * Class MOZ_Pagination
- *
  */
 class MOZ_Pagination {
 
@@ -20,10 +19,10 @@ class MOZ_Pagination {
 	 * for the currently
 	 * active loop
 	 *
-	 * @param array|string $args
+	 * @param array|string $args Paginated links arguments.
 	 */
 	public static function pagination( $args = '' ) {
-		echo self::get_pagination( $args );
+		echo wp_kses( self::get_pagination( $args ), wp_kses_allowed_html( 'post' ) );
 	}
 
 
@@ -33,7 +32,7 @@ class MOZ_Pagination {
 	 * for the currently
 	 * active loop
 	 *
-	 * @param array|string $args
+	 * @param array|string $args Paginated links arguments.
 	 *
 	 * @return string
 	 */
@@ -55,17 +54,17 @@ class MOZ_Pagination {
 
 						<li class="pagination__list-item">
 							<?php
-								$classes = 'pagination__item';
-								if ( 'page' !== $item['type'] ) {
-									$classes .= " pagination__item--{$item['type']}";
-								}
+							$classes = 'pagination__item';
+							if ( 'page' !== $item['type'] ) {
+								$classes .= " pagination__item--{$item['type']}";
+							}
 
-								$tag = 'span';
-								$attrs = array( 'class' => $classes );
-								if ( false !== $item['link'] && '#' !== $item['link'] ) {
-									$tag = 'a';
-									$attrs['href'] = $item['link'];
-								}
+							$tag = 'span';
+							$attrs = array( 'class' => $classes );
+							if ( false !== $item['link'] && '#' !== $item['link'] ) {
+								$tag = 'a';
+								$attrs['href'] = $item['link'];
+							}
 
 								MOZ_Html::element( $tag, $attrs, $item['text'] );
 							?>
@@ -153,10 +152,8 @@ class MOZ_Pagination {
 	 * @return array array of page links.
 	 */
 	public static function get_pagination_arr( $args = array() ) {
-		/**
-		 * @var $wp_query WP_Query
-		 * @var $wp_rewrite WP_Rewrite
-		 */
+		// @var object $wp_query   WP_Query   Wordpress query object.
+		// @var object $wp_rewrite WP_Rewrite Wordpress rewrite object.
 		global $wp_query, $wp_rewrite;
 
 		// Setting up default values based on the current URL.
@@ -176,8 +173,8 @@ class MOZ_Pagination {
 			: '?paged=%#%';
 
 		$defaults = array(
-			'base'               => $pagenum_link, // http://example.com/all_posts.php%_% : %_% is replaced by format (below)
-			'format'             => $format, // ?page=%#% : %#% is replaced by the page number
+			'base'               => $pagenum_link, /* http://example.com/all_posts.php%_% : %_% is replaced by format (below). */
+			'format'             => $format, /* ?page=%#% : %#% is replaced by the page number. */
 			'total'              => $total,
 			'current'            => $current,
 			'show_all'           => false,
@@ -187,10 +184,10 @@ class MOZ_Pagination {
 			'dots_text'          => __( '&hellip;' ),
 			'end_size'           => 1,
 			'mid_size'           => 2,
-			'add_args'           => array(), // array of query args to add
+			'add_args'           => array(), // Array of query args to add.
 			'add_fragment'       => '',
 			'before_page_number' => '',
-			'after_page_number'  => ''
+			'after_page_number'  => '',
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -202,7 +199,7 @@ class MOZ_Pagination {
 		// Merge additional query vars found in the original URL into 'add_args' array.
 		if ( isset( $url_parts[1] ) ) {
 			// Find the format argument.
-			$format_query = parse_url( str_replace( '%_%', $args['format'], $args['base'] ), PHP_URL_QUERY );
+			$format_query = wp_parse_url( str_replace( '%_%', $args['format'], $args['base'] ), PHP_URL_QUERY );
 			wp_parse_str( $format_query, $format_arg );
 
 			// Remove the format argument from the array of query arguments, to avoid overwriting custom format.
@@ -210,7 +207,7 @@ class MOZ_Pagination {
 			$args['add_args'] = array_merge( $args['add_args'], urlencode_deep( $query_args ) );
 		}
 
-		// Who knows what else people pass in $args
+		// Who knows what else people pass in $args.
 		$total = (int) $args['total'];
 		if ( $total < 2 ) {
 			return array();
@@ -232,10 +229,10 @@ class MOZ_Pagination {
 		$page_links = array();
 		$dots       = false;
 
-		// Maybe add Prev Page to array
+		// Maybe add Prev Page to array.
 		if ( $args['prev_next'] && $current && 1 < $current ) {
 
-			$link = str_replace( '%_%', 2 == $current ? '' : $args['format'], $args['base'] );
+			$link = str_replace( '%_%', 2 === $current ? '' : $args['format'], $args['base'] );
 			$link = str_replace( '%#%', $current - 1, $link );
 			if ( $add_args ) {
 				$link = add_query_arg( $add_args, $link );
@@ -252,31 +249,32 @@ class MOZ_Pagination {
 			$page_links[] = array(
 				'type' => 'prev',
 				'link' => esc_url( apply_filters( 'paginate_links', $link ) ),
-				'text' => $args['prev_text']
+				'text' => $args['prev_text'],
 			);
 		}
 
-		// Add page number pages to array
+		// Add page number pages to array.
 		for ( $n = 1; $n <= $total; $n ++ ) {
 
-			// Add current page number to array
-			if ( $n == $current ) {
+			// Add current page number to array.
+			if ( $n === $current ) {
 				$page_links[] = array(
 					'type' => 'current',
 					'link' => false,
 					'text' => join(
 						'', array(
-						$args['before_page_number'],
-						number_format_i18n( $n ),
-						$args['after_page_number']
-					) )
+							$args['before_page_number'],
+							number_format_i18n( $n ),
+							$args['after_page_number'],
+						)
+					),
 				);
 
 				$dots = true;
 
 			} else {
 
-				// Add other page numbers to array
+				// Add other page numbers to array.
 				if ( $args['show_all']
 				     || ( $n <= $end_size
 				          || ( $current && $n >= $current - $mid_size
@@ -284,7 +282,7 @@ class MOZ_Pagination {
 				          || $n > $total - $end_size )
 				) {
 
-					$link = str_replace( '%_%', 1 == $n ? '' : $args['format'], $args['base'] );
+					$link = str_replace( '%_%', 1 === $n ? '' : $args['format'], $args['base'] );
 					$link = str_replace( '%#%', $n, $link );
 					if ( $add_args ) {
 						$link = add_query_arg( $add_args, $link );
@@ -297,28 +295,29 @@ class MOZ_Pagination {
 						'link' => esc_url( apply_filters( 'paginate_links', $link ) ),
 						'text' => join(
 							'', array(
-							$args['before_page_number'],
-							number_format_i18n( $n ),
-							$args['after_page_number']
-						) )
+								$args['before_page_number'],
+								number_format_i18n( $n ),
+								$args['after_page_number'],
+							)
+						),
 					);
 
 					$dots = true;
 
-					// Maybe add dots to array
+					// Maybe add dots to array.
 				} else if ( $dots && ! $args['show_all'] ) {
 					$page_links[] = array(
 						'type' => 'dots',
 						'link' => false,
-						'text' => $args['dots_text']
+						'text' => $args['dots_text'],
 					);
 					$dots         = false;
 				}
 			}
 		}
 
-		// Maybe add next page link to array
-		if ( $args['prev_next'] && $current && ( $current < $total || - 1 == $total ) ) {
+		// Maybe add next page link to array.
+		if ( $args['prev_next'] && $current && ( $current < $total || - 1 === $total ) ) {
 
 			$link = str_replace( '%_%', $args['format'], $args['base'] );
 			$link = str_replace( '%#%', $current + 1, $link );
@@ -331,7 +330,7 @@ class MOZ_Pagination {
 			$page_links[] = array(
 				'type' => 'next',
 				'link' => esc_url( apply_filters( 'paginate_links', $link ) ),
-				'text' => $args['next_text']
+				'text' => $args['next_text'],
 			);
 		}
 

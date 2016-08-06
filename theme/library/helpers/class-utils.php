@@ -4,12 +4,11 @@
  * functions
  *
  * @author Max G J Panas <http://maxpanas.com>
+ * @package @@name
  */
-
 
 /**
  * Class MOZ_Utils
- *
  */
 class MOZ_Utils {
 	/**
@@ -17,7 +16,7 @@ class MOZ_Utils {
 	 * string to be used with
 	 * <a href="mailto:{...}"></a>
 	 *
-	 * @param $email {string}
+	 * @param string $email Email address to escape.
 	 *
 	 * @return string
 	 */
@@ -35,10 +34,10 @@ class MOZ_Utils {
 	 * string to be used with
 	 * <a href="mailto:{...}"></a>
 	 *
-	 * @param $email
+	 * @param string $email Email address to escape.
 	 */
 	public static function esc_email( $email ) {
-		echo self::get_esc_email( $email );
+		echo self::get_esc_email( $email ); // WPCS: XSS ok.
 	}
 
 
@@ -47,7 +46,7 @@ class MOZ_Utils {
 	 * string to be used with
 	 * <a href="tel:{...}"></a>
 	 *
-	 * @param $tel {string}
+	 * @param string $tel Telephone number to escape.
 	 *
 	 * @return mixed
 	 */
@@ -61,10 +60,10 @@ class MOZ_Utils {
 	 * string to be used with
 	 * <a href="tel:{...}"></a>
 	 *
-	 * @param $tel {string}
+	 * @param string $tel Telephone number to escape.
 	 */
 	public static function esc_tel( $tel ) {
-		echo self::get_esc_tel( $tel );
+		echo self::get_esc_tel( $tel ); // WPCS: XSS ok.
 	}
 
 
@@ -73,7 +72,7 @@ class MOZ_Utils {
 	 * characters in
 	 * string
 	 *
-	 * @param string $str
+	 * @param string $str String to remove accents in.
 	 *
 	 * @returns string
 	 */
@@ -96,7 +95,7 @@ class MOZ_Utils {
 	 *       HTML entities eg: "&nbsp;"
 	 *       are OK
 	 *
-	 * @param string $str
+	 * @param string $str String to transform to uppercase.
 	 *
 	 * @return string
 	 */
@@ -121,10 +120,10 @@ class MOZ_Utils {
 	 *       HTML entities eg: "&nbsp;"
 	 *       are OK
 	 *
-	 * @param string $str
+	 * @param string $str String to transform to uppercase.
 	 */
 	public static function upper( $str ) {
-		echo self::get_upper( $str );
+		echo esc_attr( self::get_upper( $str ) );
 	}
 
 
@@ -134,10 +133,10 @@ class MOZ_Utils {
 	 * and the original copyright
 	 * year
 	 *
-	 * eg: '2014-2020'
+	 * Eg: '2014-2020'
 	 *
-	 * @param int    $original_copyright_year
-	 * @param string $separator
+	 * @param int    $original_copyright_year Year when the copyright started.
+	 * @param string $separator               Separator string used between years.
 	 *
 	 * @return string
 	 */
@@ -156,14 +155,12 @@ class MOZ_Utils {
 	 * and the original copyright
 	 * year
 	 *
-	 * eg: '2014-2020'
+	 * Eg: '2014-2020'
 	 *
-	 * @param int    $original_copyright_year
-	 * @param string $separator
-	 *
-	 * @return string
+	 * @param int    $original_copyright_year Year when the copyright started.
+	 * @param string $separator               Separator string used between years.
 	 */
 	public static function copyright_years( $original_copyright_year, $separator = '-' ) {
-		echo self::get_copyright_years( $original_copyright_year, $separator );
+		echo esc_attr( self::get_copyright_years( $original_copyright_year, $separator ) );
 	}
 }

@@ -5,12 +5,11 @@
  * conventions
  *
  * @author Max G J Panas <http://maxpanas.com>
+ * @package @@name
  */
-
 
 /**
  * Class MOZ_Crumbs
- *
  */
 class MOZ_Crumbs {
 
@@ -20,11 +19,28 @@ class MOZ_Crumbs {
 	 * based on the given menu
 	 * location
 	 *
-	 * @param string $theme_location
-	 * @param array  $options
+	 * @param string $theme_location Theme location.
+	 * @param array  $options Breadcrumb options.
 	 */
 	public static function crumbs( $theme_location = 'primary', $options = array() ) {
-		echo self::get_crumbs( $theme_location, $options );
+		echo wp_kses( self::get_crumbs( $theme_location, $options ), array(
+			'nav' => array(
+				'class' => array(),
+				'ul' => array(
+					'class' => array(),
+					'li' => array(
+						'class' => array(),
+						'span' => array(
+							'class' => array(),
+						),
+						'a' => array(
+							'class' => array(),
+							'href' => array(),
+						),
+					),
+				),
+			),
+		));
 	}
 
 
@@ -33,8 +49,8 @@ class MOZ_Crumbs {
 	 * based on the given menu
 	 * location
 	 *
-	 * @param string $theme_location
-	 * @param array  $options
+	 * @param string $theme_location Theme location.
+	 * @param array  $options Breadcrumb options.
 	 *
 	 * @return string
 	 */
@@ -53,17 +69,17 @@ class MOZ_Crumbs {
 
 					<li class="crumbs__list-item">
 						<?php
-							$classes = 'crumbs__item';
-							if ( $item['current'] ) {
-								$classes .= ' crumbs__item--current';
-							}
+						$classes = 'crumbs__item';
+						if ( $item['current'] ) {
+							$classes .= ' crumbs__item--current';
+						}
 
-							$tag   = 'span';
-							$attrs = array( 'class' => $classes );
-							if ( $item['link'] && '#' !== $item['link'] ) {
-								$tag           = 'a';
-								$attrs['href'] = $item['link'];
-							}
+						$tag   = 'span';
+						$attrs = array( 'class' => $classes );
+						if ( $item['link'] && '#' !== $item['link'] ) {
+							$tag           = 'a';
+							$attrs['href'] = $item['link'];
+						}
 
 							MOZ_Html::element( $tag, $attrs, $item['text'] );
 						?>
@@ -83,14 +99,14 @@ class MOZ_Crumbs {
 	 * a menu location for the
 	 * current content
 	 *
-	 * @param string $theme_location
-	 * @param array  $options
+	 * @param string $theme_location Theme location.
+	 * @param array  $options Breadcrumb options.
 	 *
 	 * @return array
 	 */
 	public static function get_crumbs_array( $theme_location = 'primary', $options = array() ) {
 		$clean_options = wp_parse_args( $options, array(
-			'home_title'   => __( 'Home' )
+			'home_title'   => __( 'Home' ),
 		) );
 
 		$current_item = self::get_current_crumb_item();
@@ -102,7 +118,7 @@ class MOZ_Crumbs {
 
 		if ( ! is_front_page() ) {
 			array_unshift( $crumbs, self::get_crumb_item( 'home', home_url(), $clean_options['home_title'], array(
-				'type' => 'home'
+				'type' => 'home',
 			) ) );
 		}
 
@@ -114,7 +130,7 @@ class MOZ_Crumbs {
 	 * Transform menu items into
 	 * breadcrumb items
 	 *
-	 * @param $menu_items
+	 * @param array $menu_items Menu items.
 	 *
 	 * @return array
 	 */
@@ -180,7 +196,7 @@ class MOZ_Crumbs {
 
 		return self::get_crumb_item( $item_id, $url, $title, array(
 			'current' => true,
-			'type'    => $type
+			'type'    => $type,
 		) );
 	}
 
@@ -189,10 +205,10 @@ class MOZ_Crumbs {
 	 * Return a single normalized
 	 * breadcrumb properties array
 	 *
-	 * @param string $item_id
-	 * @param string $link
-	 * @param string $text
-	 * @param array  $flags
+	 * @param string $item_id Item dom identifier.
+	 * @param string $link    Link href.
+	 * @param string $text    Breadcrumb caption.
+	 * @param array  $flags   Additional flags array.
 	 *
 	 * @return array
 	 */
@@ -200,7 +216,7 @@ class MOZ_Crumbs {
 		$flags = wp_parse_args( $flags, array(
 			'current'   => false,
 			'parent'    => false,
-			'type'      => false
+			'type'      => false,
 		) );
 
 		return array_merge( array(

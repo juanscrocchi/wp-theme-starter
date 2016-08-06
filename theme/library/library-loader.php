@@ -2,15 +2,15 @@
 /**
  * The Library Loader
  *
+ * @package @@name
  */
 
-
-// make sure this file is called by wp
+// Make sure this file is called by wp.
 defined( 'ABSPATH' ) or die();
 
 
 // Register the class autoloader for
-// the mozaik library
+// the mozaik library.
 spl_autoload_register( function ( $class ) {
 	$prefix = 'MOZ_';
 
@@ -35,4 +35,4 @@ spl_autoload_register( function ( $class ) {
 			break;
 		}
 	}
-} );
+});

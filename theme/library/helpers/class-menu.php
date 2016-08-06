@@ -5,13 +5,11 @@
  * conventions
  *
  * @author Max G J Panas <http://maxpanas.com>
+ * @package @@name
  */
-
-
 
 /**
  * Class MOZ_Menu
- *
  */
 class MOZ_Menu {
 
@@ -21,11 +19,11 @@ class MOZ_Menu {
 	 * the given theme location
 	 * using some sensible defaults
 	 *
-	 * @param string $theme_location
-	 * @param array  $extras
+	 * @param string $theme_location Nav menu theme location.
+	 * @param array  $extras         Extra menu parameters.
 	 */
 	public static function nav_menu( $theme_location = 'primary', $extras = array() ) {
-		echo self::get_nav_menu( $theme_location, $extras );
+		echo wp_kses( self::get_nav_menu( $theme_location, $extras ), wp_kses_allowed_html( 'post' ) );
 	}
 
 
@@ -34,8 +32,8 @@ class MOZ_Menu {
 	 * the given theme location
 	 * using some sensible defaults
 	 *
-	 * @param string $theme_location
-	 * @param array  $extras
+	 * @param string $theme_location Nav menu theme location.
+	 * @param array  $extras         Extra menu parameters.
 	 *
 	 * @returns string
 	 */
@@ -66,7 +64,7 @@ class MOZ_Menu {
 			'show_level_class' => $show_level_class,
 			'items_wrap'       => "<ul class=\"{$wrap_class}\">%3\$s</ul>",
 			'fallback_cb'      => false,
-			'walker'           => new MOZ_Walker_Nav_Menu
+			'walker'           => new MOZ_Walker_Nav_Menu,
 		), $extras ) );
 	}
 
@@ -75,7 +73,7 @@ class MOZ_Menu {
 	 * Get menu items for a given
 	 * menu location
 	 *
-	 * @param string $theme_location
+	 * @param string $theme_location Nav menu theme location.
 	 *
 	 * @return array|bool|false
 	 */
@@ -86,7 +84,7 @@ class MOZ_Menu {
 			return false;
 		}
 
-		$menu_id = $locations[$theme_location];
+		$menu_id = $locations[ $theme_location ];
 		if ( function_exists( 'wpml_object_id' ) ) {
 			$menu_id = wpml_object_id( (int) $menu_id, 'nav_menu' );
 		}
@@ -99,8 +97,8 @@ class MOZ_Menu {
 	 * Get a menu item given
 	 * an object_id
 	 *
-	 * @param array|string $menu array of menu items, or menu location id
-	 * @param int          $item_id
+	 * @param array|string $menu Array of menu items, or menu location id.
+	 * @param int          $item_id Item dom identifier.
 	 *
 	 * @return bool
 	 */
@@ -127,8 +125,8 @@ class MOZ_Menu {
 	 * Get the parent menu items
 	 * given an object_id
 	 *
-	 * @param array|string $menu array of menu items, or menu location id
-	 * @param int          $item_id
+	 * @param array|string $menu array of menu items, or menu location id.
+	 * @param int          $item_id Item dom identifier.
 	 *
 	 * @return array|bool
 	 */
@@ -148,8 +146,8 @@ class MOZ_Menu {
 		$parent_id = $item_id;
 		$parents   = array();
 		foreach ( array_reverse( (array) $menu ) as $menu_item ) {
-			if ( $menu_item->object_id == $parent_id || $menu_item->ID == $parent_id ) {
-				if ( $parent_id != $item_id ) {
+			if ( $menu_item->object_id === $parent_id || $menu_item->ID === $parent_id ) {
+				if ( $parent_id !== $item_id ) {
 					$parents[] = $menu_item;
 				}
 

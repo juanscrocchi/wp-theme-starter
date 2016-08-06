@@ -3,12 +3,14 @@
  * Theme Functions &
  * Functionality
  *
+ * @package @@name
  */
 
-
-/* =========================================
+/*
+	=========================================
 		ACTION HOOKS & FILTERS
-   ========================================= */
+	=========================================
+*/
 
 /**--- Actions ---**/
 
@@ -18,30 +20,36 @@ add_action( 'wp_enqueue_scripts', 'theme_styles' );
 
 add_action( 'wp_enqueue_scripts', 'theme_scripts' );
 
-// expose php variables to js. just uncomment line
-// below and see function theme_scripts_localize
-// add_action( 'wp_enqueue_scripts', 'theme_scripts_localize', 20 );
+/*
+Expose php variables to js. just uncomment line
+below and see function theme_scripts_localize.
+add_action( 'wp_enqueue_scripts', 'theme_scripts_localize', 20 );
+*/
+
+// Add inline scripts to the page head.
+add_action( 'wp_head', 'theme_head_inline_scripts', 1, 2 );
 
 /**--- Filters ---**/
 
+add_filter( 'script_loader_tag', 'theme_script_add_async_attribute', 10, 2 );
 
-
-/* =========================================
+/*
+	=========================================
 		HOOKED Functions
-   ========================================= */
+	=========================================
+*/
 
 /**--- Actions ---**/
 
-
-/**
- * Setup the theme
- *
- * @since 1.0
- */
 if ( ! function_exists( 'theme_setup' ) ) {
+	/**
+	 * Setup the theme
+	 *
+	 * @since 1.0
+	 */
 	function theme_setup() {
 
-		// Let wp know we want to use html5 for content
+		// Let wp know we want to use html5 for content.
 		add_theme_support( 'html5', array(
 			'comment-list',
 			'comment-form',
@@ -50,15 +58,15 @@ if ( ! function_exists( 'theme_setup' ) ) {
 			'caption',
 		) );
 
-		// Let wp know we want to use post thumbnails
-		/*
-		add_theme_support( 'post-thumbnails' );
-		*/
+		/* Let wp know we want to use post thumbnails. */
 
-		// Add WP 4.1 title tag support
+		/* add_theme_support( 'post-thumbnails' ); . */
+
+		// Add WP 4.1 title tag support.
 		add_theme_support( 'title-tag' );
 
-		// Add Custom Logo Support.
+		/* Add Custom Logo Support. */
+
 		/*
 		add_theme_support( 'custom-logo', array(
 			'width'       => 181, // Example Width Size
@@ -67,7 +75,8 @@ if ( ! function_exists( 'theme_setup' ) ) {
 		) );
 		*/
 
-		// Register navigation menus for theme
+		/* Register navigation menus for theme. */
+
 		/*
 		register_nav_menus( array(
 			'primary' => 'Main Menu',
@@ -75,26 +84,31 @@ if ( ! function_exists( 'theme_setup' ) ) {
 		) );
 		*/
 
-		// Let wp know we are going to handle styling galleries
+		/* Let wp know we are going to handle styling galleries. */
+
 		/*
 		add_filter( 'use_default_gallery_style', '__return_false' );
 		*/
 
-		// Stop WP from printing emoji service on the front
+		// Stop WP from printing emoji service on the front.
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_print_styles', 'print_emoji_styles' );
 
-		// Remove toolbar for all users in front end
-		// show_admin_bar( false );
+		/* Remove toolbar for all users in front end.  */
 
-		// Add Custom Image Sizes
+		/*
+		show_admin_bar( false );
+		*/
+
+		/* Add Custom Image Sizes. */
+
 		/*
 		add_image_size( 'ExampleImageSize', 1200, 450, true ); // Example Image Size
 		...
 		*/
 
-		// WPML configuration
-		// disable plugin from printing styles and js
+		// WPML configuration.
+		// Disable plugin from printing styles and js
 		// we are going to handle all that ourselves.
 		if ( ! is_admin() ) {
 			define( 'ICL_DONT_LOAD_NAVIGATION_CSS', true );
@@ -102,10 +116,16 @@ if ( ! function_exists( 'theme_setup' ) ) {
 			define( 'ICL_DONT_LOAD_LANGUAGES_JS', true );
 		}
 
-		// Contact Form 7 Configuration needs to be done
-		// in wp-config.php. add the following snippet
-		// under the line:
-		// define( 'WP_DEBUG', false );
+		/*
+		Contact Form 7 Configuration needs to be done
+		in wp-config.php. add the following snippet
+		under the line:
+		*/
+
+		/*
+		define( 'WP_DEBUG', false );
+		*/
+
 		/*
 		//Contact Form 7 Plugin Configuration
 		define ( 'WPCF7_LOAD_JS',  false ); // Added to disable JS loading
@@ -113,7 +133,7 @@ if ( ! function_exists( 'theme_setup' ) ) {
 		define ( 'WPCF7_AUTOP',    false ); // Added to disable adding <p> & <br> in form output
 		*/
 
-		// Register Autoloaders Loader
+		// Register Autoloaders Loader.
 		$theme_dir = get_template_directory();
 		include "$theme_dir/library/library-loader.php";
 		include "$theme_dir/includes/includes-loader.php";
@@ -121,14 +141,13 @@ if ( ! function_exists( 'theme_setup' ) ) {
 	}
 }
 
-
-/**
- * Register and/or Enqueue
- * Styles for the theme
- *
- * @since 1.0
- */
 if ( ! function_exists( 'theme_styles' ) ) {
+	/**
+	 * Register and/or Enqueue
+	 * Styles for the theme
+	 *
+	 * @since 1.0
+	 */
 	function theme_styles() {
 		$theme_dir = get_stylesheet_directory_uri();
 
@@ -136,35 +155,36 @@ if ( ! function_exists( 'theme_styles' ) ) {
 	}
 }
 
-
-/**
- * Register and/or Enqueue
- * Scripts for the theme
- *
- * @since 1.0
- */
 if ( ! function_exists( 'theme_scripts' ) ) {
+	/**
+	 * Register and/or Enqueue
+	 * Scripts for the theme
+	 *
+	 * @since 1.0
+	 */
 	function theme_scripts() {
 		$theme_dir = get_stylesheet_directory_uri();
 
+		wp_enqueue_script( 'html5shiv', '//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js' );
+		wp_script_add_data( 'html5shiv', 'conditional', 'lt IE 9' );
+		wp_enqueue_script( 'core', "$theme_dir/assets/js/core.js", array(), null, false );
 		wp_enqueue_script( 'main', "$theme_dir/assets/js/main.js", array(), null, true );
 	}
 }
 
-
-/**
- * Attach variables we want
- * to expose to our JS
- *
- * @since 3.12.0
- */
 if ( ! function_exists( 'theme_scripts_localize' ) ) {
+	/**
+	 * Attach variables we want
+	 * to expose to our JS
+	 *
+	 * @since 3.12.0
+	 */
 	function theme_scripts_localize() {
 		$ajax_url_params = array();
 
-		// You can remove this block if you don't use WPML
+		// You can remove this block if you don't use WPML.
 		if ( function_exists( 'wpml_object_id' ) ) {
-			/** @var $sitepress SitePress */
+			/* @var object $sitepress SitePress object. */
 			global $sitepress;
 
 			$current_lang = $sitepress->get_current_language();
@@ -182,3 +202,38 @@ if ( ! function_exists( 'theme_scripts_localize' ) ) {
 		) );
 	}
 }
+
+if ( ! function_exists( 'theme_head_inline_scripts' ) ) {
+	/**
+	 * Print inline scripts
+	 * we want in html head.
+	 */
+	function theme_head_inline_scripts() {
+		ob_start();
+		// Replace the no-js class with js on the html element.
+?>
+<script>
+	document.documentElement.className=document.documentElement.className.replace(/\bno-js\b/,'js');
+</script>
+<?php
+		echo ob_get_clean(); // WPCS: XSS ok.
+	}
+}
+
+if ( ! function_exists( 'theme_script_add_async_attribute' ) ) {
+	/**
+	 * Add async
+	 * and defer attributes
+	 * to core.js.
+	 *
+	 * @param string $tag    Html code of script tag.
+	 * @param string $handle Script handle.
+	 */
+	function theme_script_add_async_attribute( $tag, $handle ) {
+		if ( 'core' !== $handle ) {
+			return $tag;
+		}
+		return str_replace( ' src', ' async defer src', $tag );
+	}
+}
+

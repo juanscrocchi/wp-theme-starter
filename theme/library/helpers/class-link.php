@@ -3,13 +3,11 @@
  * WordPress Link-making Helpers
  *
  * @author Max G J Panas <http://maxpanas.com>
+ * @package @@name
  */
-
-
 
 /**
  * Class MOZ_Link
- *
  */
 class MOZ_Link {
 
@@ -28,16 +26,16 @@ class MOZ_Link {
 	 *         'email' => email...
 	 *       ]
 	 *
-	 * @param array $data
+	 * @param array $data Array of link properties.
 	 *
 	 * @return bool
 	 */
 	public static function get_link_href( $data ) {
-		if ( ! isset( $data[ $data['type'] ] ) || empty( $data[ $data['type'] ] ) ){
+		if ( ! isset( $data[ $data['type'] ] ) || empty( $data[ $data['type'] ] ) ) {
 			return false;
 		}
 
-		$href = $data[$data['type']];
+		$href = $data[ $data['type'] ];
 
 		switch ( $data['type'] ) {
 			case 'tel': return 'tel:' . MOZ_Utils::get_esc_tel( $href );
@@ -61,10 +59,10 @@ class MOZ_Link {
 	 *         'email' => email...
 	 *       ]
 	 *
-	 * @param array $data
+	 * @param array $data Array of link properties.
 	 */
 	public static function link_href( $data ) {
-		echo self::get_link_href( $data );
+		echo esc_url( self::get_link_href( $data ) );
 	}
 
 
@@ -74,7 +72,7 @@ class MOZ_Link {
 	 * array if the specified
 	 * href is external
 	 *
-	 * @param array $attrs
+	 * @param array $attrs Array of html anchor attributes.
 	 *
 	 * @return mixed
 	 */
@@ -97,7 +95,7 @@ class MOZ_Link {
 	 * array if the specified
 	 * href is external
 	 *
-	 * @param array $attrs
+	 * @param array $attrs Array of html anchor attributes.
 	 *
 	 * @return mixed
 	 */
@@ -117,9 +115,9 @@ class MOZ_Link {
 	/**
 	 * Get an anchor tag
 	 *
-	 * @param array  $data
-	 * @param array  $attrs
-	 * @param string $content
+	 * @param array  $data     Array of link properties.
+	 * @param array  $attrs    Array of html anchor attributes.
+	 * @param string $content Html anchor content.
 	 *
 	 * @return string
 	 */
@@ -135,11 +133,18 @@ class MOZ_Link {
 	/**
 	 * Print an anchor tag
 	 *
-	 * @param null   $data
-	 * @param array  $attrs
-	 * @param string $content
+	 * @param array  $data     Array of link properties.
+	 * @param array  $attrs    Array of html anchor attributes.
+	 * @param string $content Html anchor content.
 	 */
 	public static function link( $data = null, $attrs = array(), $content = '' ) {
-		echo self::get_link( $data, $attrs, $content );
+		echo wp_kses( self::get_link( $data, $attrs, $content ), array(
+			'a' => array(
+				'href' => array(),
+				'target' => array(),
+				'rel' => array(),
+				),
+			)
+		);
 	}
 }

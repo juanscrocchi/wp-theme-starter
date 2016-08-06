@@ -4,13 +4,11 @@
  * Implementation
  *
  * @author Max G J Panas <http://maxpanas.com>
+ * @package @@name
  */
-
-
 
 /**
  * Class MOZ_Image
- *
  */
 class MOZ_Image {
 
@@ -20,9 +18,9 @@ class MOZ_Image {
 	 * image should be
 	 * lazy-loaded
 	 *
-	 * default: false
+	 * Default: false
 	 *
-	 * @param array $flags
+	 * @param array $flags Array of image flags.
 	 *
 	 * @return bool
 	 */
@@ -37,9 +35,9 @@ class MOZ_Image {
 	 * the lazy class from the
 	 * start
 	 *
-	 * default: true
+	 * Default: true
 	 *
-	 * @param array $flags
+	 * @param array $flags Array of image flags.
 	 *
 	 * @return bool
 	 */
@@ -56,10 +54,10 @@ class MOZ_Image {
 	 * whether it should
 	 * be lazy-loaded
 	 *
-	 * @param array     $flags
-	 * @param array     $attrs
-	 * @param bool|null $add_class
-	 * @param bool|null $add_src
+	 * @param array     $flags     Array of image flags.
+	 * @param array     $attrs     Array of image attributes.
+	 * @param bool|null $add_class Whether to add a class to lazy-loaded images.
+	 * @param bool|null $add_src   Whether to add a transparent gif as src to lazy-loaded images.
 	 *
 	 * @return array
 	 */
@@ -71,7 +69,7 @@ class MOZ_Image {
 		$lazifiables = array( 'src', 'srcset', 'sizes' );
 		foreach ( $lazifiables as $lazifiable ) {
 			if ( isset( $attrs[ $lazifiable ] ) ) {
-				$attrs["data-$lazifiable"] = $attrs[ $lazifiable ];
+				$attrs[ "data-$lazifiable" ] = $attrs[ $lazifiable ];
 				unset( $attrs[ $lazifiable ] );
 			}
 		}
@@ -94,7 +92,7 @@ class MOZ_Image {
 	 * Get an image's alt
 	 * attribute content
 	 *
-	 * @param $image
+	 * @param int $image A wordpress image id.
 	 *
 	 * @return string
 	 */
@@ -107,10 +105,10 @@ class MOZ_Image {
 	 * Print an image's alt
 	 * attribute content
 	 *
-	 * @param $image
+	 * @param int $image A wordpress image id.
 	 */
 	public static function img_alt( $image ) {
-		echo self::get_img_alt( $image );
+		echo esc_attr( self::get_img_alt( $image ) );
 	}
 
 
@@ -119,8 +117,8 @@ class MOZ_Image {
 	 * attribute for the
 	 * specified size
 	 *
-	 * @param        $image
-	 * @param string $size
+	 * @param int    $image A wordpress image id.
+	 * @param string $size  A wordpress image size identifier.
 	 *
 	 * @return bool
 	 */
@@ -138,11 +136,11 @@ class MOZ_Image {
 	 * attribute for the
 	 * specified size
 	 *
-	 * @param        $image
-	 * @param string $size
+	 * @param int    $image A wordpress image id.
+	 * @param string $size  A wordpress image size identifier.
 	 */
 	public static function src( $image, $size = 'full' ) {
-		echo self::get_src( $image, $size );
+		echo esc_url( self::get_src( $image, $size ) );
 	}
 
 
@@ -151,11 +149,11 @@ class MOZ_Image {
 	 * responsive background
 	 * image
 	 *
-	 * @param int        $image
-	 * @param string     $base_size
-	 * @param array      $sizes
-	 * @param array|null $attrs
-	 * @param array|null $flags
+	 * @param int        $image     A wordpress image id.
+	 * @param string     $base_size A wordpress image size identifier.
+	 * @param array      $sizes     An array of media queries with wordpress image sizes as keys.
+	 * @param array|null $attrs     An array of image attributes.
+	 * @param array|null $flags     An array of image flags.
 	 *
 	 * @return bool|string
 	 */
@@ -167,7 +165,7 @@ class MOZ_Image {
 		$bgel_attrs = array_merge( array(
 			'class' => '',
 			'role'  => 'img',
-			'alt'   => self::get_img_alt( $image )
+			'alt'   => self::get_img_alt( $image ),
 		), (array) $attrs );
 
 		$alt = $bgel_attrs['alt'];
@@ -178,7 +176,7 @@ class MOZ_Image {
 		$bgel_attrs['class'] .= ' moz-background-picture';
 
 		if ( self::is_lazy( $flags ) ) {
-			// lazy loaded background image
+			// Lazy loaded background image.
 			if ( self::should_add_lazy_class( $flags ) ) {
 				$bgel_attrs['class'] .= ' lazyload';
 			}
@@ -192,20 +190,20 @@ class MOZ_Image {
 			$bgel_attrs['data-bgset'] = implode( ' | ', array_reverse( $bgset ) );
 
 		} else {
-			// not lazy-loaded background image
+			// Not lazy-loaded background image.
 			$unique = uniqid( 'moz-background-picture--' );
 			$bgel_attrs['class'] .= " $unique";
 
 			ob_start(); ?>
 
 			<style>
-				.<?php echo $unique; ?> {
+				.<?php esc_attr_e( $unique ); ?> {
 					background-image: url('<?php self::src( $image, $base_size ); ?>');
 				}
 
 				<?php foreach ( $sizes as $size => $query ) : ?>
 				@media all and <?php echo esc_html( $query ); ?> {
-					.<?php echo $unique; ?> {
+					.<?php esc_attr_e( $unique ); ?> {
 						background-image: url('<?php self::src( $image, $size ); ?>');
 					}
 				}
@@ -226,14 +224,20 @@ class MOZ_Image {
 	 * responsive background
 	 * image
 	 *
-	 * @param int        $image
-	 * @param string     $base_size
-	 * @param array      $sizes
-	 * @param array|null $attrs
-	 * @param array|null $flags
+	 * @param int        $image     A wordpress image id.
+	 * @param string     $base_size A wordpress image size identifier.
+	 * @param array      $sizes     An array of media queries with wordpress image sizes as keys.
+	 * @param array|null $attrs     An array of image attributes.
+	 * @param array|null $flags     An array of image flags.
 	 */
 	public static function background( $image, $base_size, $sizes, $attrs = array(), $flags = array() ) {
-		echo self::get_background( $image, $base_size, $sizes, $attrs, $flags );
+		echo wp_kses( self::get_background( $image, $base_size, $sizes, $attrs, $flags ), array(
+			'span' => array(
+				'alt' => array(),
+				'class' => array(),
+				'role' => array(),
+			),
+		));
 	}
 
 
@@ -241,11 +245,11 @@ class MOZ_Image {
 	 * Get the markup for a
 	 * picture element
 	 *
-	 * @param int        $image
-	 * @param string     $base_size
-	 * @param array      $sizes
-	 * @param array|null $attrs
-	 * @param array|null $flags
+	 * @param int        $image     A wordpress image id.
+	 * @param string     $base_size A wordpress image size identifier.
+	 * @param array      $sizes     An array of media queries with wordpress image sizes as keys.
+	 * @param array|null $attrs     An array of image attributes.
+	 * @param array|null $flags     An array of image flags.
 	 *
 	 * @return bool|string
 	 */
@@ -256,14 +260,14 @@ class MOZ_Image {
 
 		$content = array();
 
-		// required for IE9 support...
+		// Required for IE9 support...
 		$content[] = '<!--[if IE 9]><video style="display: none;"><![endif]-->';
 
 		foreach ( array_reverse( $sizes ) as $size => $query ) {
 			$source_attrs = self::maybe_lazify( $flags, array(
 				'srcset' => esc_attr( self::get_src( $image, $size ) ),
 				'media'  => esc_attr( $query ),
-				'type'   => esc_attr( get_post_mime_type( $image ) )
+				'type'   => esc_attr( get_post_mime_type( $image ) ),
 			), false, false );
 
 			$content[] = MOZ_Html::get_sc_element( 'source', $source_attrs );
@@ -273,7 +277,7 @@ class MOZ_Image {
 
 		$img_attrs = self::maybe_lazify( $flags, array_merge( array(
 			'srcset' => esc_attr( self::get_src( $image, $base_size ) ),
-			'alt'    => self::get_img_alt( $image )
+			'alt'    => self::get_img_alt( $image ),
 		), (array) $attrs ) );
 
 		$content[] = MOZ_Html::get_sc_element( 'img', $img_attrs );
@@ -286,14 +290,26 @@ class MOZ_Image {
 	 * Print the markup for a
 	 * picture element
 	 *
-	 * @param int        $image
-	 * @param string     $base_size
-	 * @param array      $sizes
-	 * @param array|null $attrs
-	 * @param array|null $flags
+	 * @param int        $image     A wordpress image id.
+	 * @param string     $base_size A wordpress image size identifier.
+	 * @param array      $sizes     An array of media queries with wordpress image sizes as keys.
+	 * @param array|null $attrs     An array of image attributes.
+	 * @param array|null $flags     An array of image flags.
 	 */
 	public static function picture( $image, $base_size, $sizes, $attrs = array(), $flags = array() ) {
-		echo self::get_picture( $image, $base_size, $sizes, $attrs, $flags );
+		echo wp_kses( self::get_picture( $image, $base_size, $sizes, $attrs, $flags ), array(
+			'picture' => array(
+				'img' => array(
+					'alt' => array(),
+					'srcset' => array(),
+				),
+				'source' => array(
+					'media' => array(),
+					'srcset' => array(),
+					'type' => array(),
+				),
+			),
+		));
 	}
 
 
@@ -301,11 +317,11 @@ class MOZ_Image {
 	 * Get the markup for an image
 	 * using srcset and sizes
 	 *
-	 * @param int        $image
-	 * @param array      $sources
-	 * @param array      $sizes
-	 * @param array|null $attrs
-	 * @param array|null $flags
+	 * @param int        $image   A wordpress image id.
+	 * @param array      $sources An array of wordpress image sizes.
+	 * @param array      $sizes   An array of srcset size attributes.
+	 * @param array|null $attrs   An array of image attributes.
+	 * @param array|null $flags   An array of srcset flags.
 	 *
 	 * @returns string
 	 */
@@ -328,7 +344,7 @@ class MOZ_Image {
 		$img_attrs = self::maybe_lazify( $flags, array_merge( array(
 			'srcset' => implode( ', ', $srcset ),
 			'sizes'  => implode( ', ', $sizes ),
-			'alt'    => self::get_img_alt( $image )
+			'alt'    => self::get_img_alt( $image ),
 		), (array) $attrs ) );
 
 		return MOZ_Html::get_sc_element( 'img', $img_attrs );
@@ -339,13 +355,19 @@ class MOZ_Image {
 	 * Print the markup for an image
 	 * using srcset and sizes
 	 *
-	 * @param int        $image
-	 * @param array      $sources
-	 * @param array      $sizes
-	 * @param array|null $attrs
-	 * @param array|null $flags
+	 * @param int        $image   A wordpress image id.
+	 * @param array      $sources An array of wordpress image sizes.
+	 * @param array      $sizes   An array of srcset size attributes.
+	 * @param array|null $attrs   An array of image attributes.
+	 * @param array|null $flags   An array of srcset flags.
 	 */
 	public static function image( $image, $sources, $sizes, $attrs = array(), $flags = array() ) {
-		echo self::get_image( $image, $sources, $sizes, $attrs, $flags );
+		echo wp_kses( self::get_image( $image, $sources, $sizes, $attrs, $flags ), array(
+			'img' => array(
+				'alt' => array(),
+				'srcset' => array(),
+				'sizes' => array(),
+			),
+		));
 	}
 }

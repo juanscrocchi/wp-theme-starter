@@ -3,7 +3,9 @@
  * Read up on the WP Template Hierarchy for
  * when this file is used
  *
+ * @package @@name
  */
+
 ?>
 <?php get_header(); ?>
 
@@ -52,4 +54,4 @@
 		</div>
 	</article>
 
-<?php get_footer(); ?>
+<?php get_footer();
