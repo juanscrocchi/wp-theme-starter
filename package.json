@@ -16,9 +16,15 @@
     "gulp"
   ],
   "scripts": {
+    "postinstall": "npm run composer -- create-project wp-coding-standards/wpcs:dev-master --no-dev --keep-vcs",
+    "test": "npm run lint:js && npm run lint:php",
+    "lint:js": "eslint ./assets/js/**/*.jsx? ./gulp/**/*.js",
+    "lint:php": "npm run phpcs -- --standard=WordPress-VIP --warning-severity=0 ./theme/",
     "dev": "gulp",
     "prod": "gulp build",
-    "bower": "bower"
+    "bower": "bower",
+    "composer": "php ./node_modules/getcomposer/composer.phar",
+    "phpcs": "./wpcs/vendor/bin/phpcs"
   },
   "engines": {
     "node": ">=5.0.0"
@@ -44,6 +50,7 @@
     "eslint-plugin-react": "4.1.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
+    "getcomposer": "^1.3.2",
     "gulp": "3.9.1",
     "gulp-add": "0.0.2",
     "gulp-filter": "3.0.1",
