@@ -2,7 +2,7 @@ sudo: required
 dist: trusty
 language: node_js
 node_js:
-- '6'
+- '5'
 addons:
   apt:
     sources:
@@ -30,8 +30,7 @@ env:
   - CXX=g++-4.8
   - NODE_ENV=development
 before_deploy:
-  - cd ..
-  - zip -r release.zip ./you_should_probably_change_this/*
+  - zip -r release.zip ../you_should_probably_change_this/*
   - git config --global user.email "builds@travis-ci.com"
   - git config --global user.name "Travis CI"
   - export GIT_TAG=$TRAVIS_BRANCH-0.1.$TRAVIS_BUILD_NUMBER
