@@ -39,6 +39,7 @@ before_deploy:
 - git push --quiet https://${GH_TOKEN}@github.com/$TRAVIS_REPO_SLUG $GIT_TAG > /dev/null 2>&1
 deploy:
   provider: releases
+  skip_cleanup: true
   api_key:
     secure: YyckRucecG8sTaaqg3PGQWfCab2pptTervdyKMmPeNaMYJNphLxUPPC5vXMosSgriDKgy8Gg/UQpyazuhTMEt0Kr0pPEzmUltv/vKbO0StGSBbXLQli3GEWlI4svsvVRRwnjSmwKX3dzkupQQiYtzn406HApF5r1uROYkkgstTYoPmZsVrCU8cW+gWNZlWF5g2EsdipFoGQ8t9z06E7t49GnBy/Upc1gHmy5tAu3QiRzkuR6O5z8ptVQ7mZTjcKV7dvVL53z2xBsOePbNF3NucWN+zRU/uRmDt9r8PGFDU3j7yfb17Y1J9DdGOrh5EvwEkJQljVBCqI1VxHNsx92oIcIm4BR7p9OHfyZJjDP7ODJ5xKozXfIFVSoVOVsrYR8Z8KJ11gs4EW7wdu0+txmDnAzF1rN52l1bvtCAt98uvjYn9hk+guFoh7o//cTKLoih8CZR2Onu0fSmB3ub1pJJv35xFposK3k/RgR94j09lsOJdP6T8lzIdADsaz5F+T+snZU8yBtTn5Flbj/Jd/8N8EYc/E2tQzVgoEF+lGcaxD6x2BUNyuQNmsNG2htDOTkBvuu4VzW7rbTctqXNkpPobAQoMbmpy2JCcQTvElF43bDN/1hGw8QFbJMc1d5IyjN5UcrP+FoP3LdPIS68AYqw6Lp0orZcem94zHiouZSnZc=
   file: release.zip
