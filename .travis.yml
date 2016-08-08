@@ -17,9 +17,6 @@ matrix:
 cache:
   directories:
   - node_modules
-branches:
-  except:
-  - "/^build/"
 before_install:
 - npm set progress=false
 - npm prune
@@ -32,17 +29,10 @@ env:
   - REPO_NAME=$(basename $TRAVIS_REPO_SLUG)
   - PROJECT_NAME=$(./travis/getName.js)
   - GIT_TAG=$(./travis/getVersion.js)
-  - secure: jpeATxY2WVpnOUk1iHMTG1xR82VL0lLCWR6Zhouepik01NyP5n7Y+/fcBCiwySWdyR5zIo1eTOu9sBtfv1iSNpB8cz1vnYSAMpbJfSsm/ApvRE45NQAGJQbocVXBMWstk1fICtfsAfQGMFCdsXdVrfoKRChb8LlSfcN/opj9/Cr6/FN0Db3osZLAcVI/kPhxpD2D3OTdB4z+CoF8LdCisL0zNbN2qObGfIXajJOiEDpfbhxIXVxwQKgDdOTXq2gOxV08NklSeHoUxI55LWwT8nGFAx8JDuJqfWk2Uge2VX9lGWzG8v9ULQWYzhvx+As35WsfRlrxsRg5GWjbkmkU35ZYzvXckgMvKZy6ABOpb48PyDnftTii0G2YgsrO/HnQXU+SZAS/zqlfannC5imzpPnhI7wUptHwsqehWgtztvpBJELOt2oaz7b1AJyhUk/UtWoEpUp3TygJR+TCfhAWAJyKI1NzNOE50aHUgRewPp3cY8HnHpVYcXL/8ajpxQ5F+svqQ6M+31KPLRwd53E+OsOHIInz0ZyLzYChLqn8ZnQrKLMjLWUSD6gMFFMc+Nmg2N1aekszqYptansrkNayq7ToUK8p9h3i0mmgDS29J8wnvB4BiEiRL6ygt85igEpgK76aECrnCNMnHxNc4zEgBHmeUalX2vMWa5k5sPJeIgA=
 before_deploy:
 - cd ../$PROJECT_NAME/
 - zip -r "../${REPO_NAME}-${GIT_TAG}.zip" ./*
 - cd $TRAVIS_BUILD_DIR
-- git config --global user.email "builds@travis-ci.com"
-- git config --global user.name "Travis CI"
-- git tag $GIT_TAG -a -m "Generated tag from TravisCI build $TRAVIS_BUILD_NUMBER on
-  branch $TRAVIS_BRANCH"
-- git push --quiet https://${GH_TOKEN}@github.com/$TRAVIS_REPO_SLUG $GIT_TAG > /dev/null
-  2>&1
 deploy:
   provider: releases
   skip_cleanup: true
@@ -52,5 +42,4 @@ deploy:
   file: "../${REPO_NAME}-${GIT_TAG}.zip"
   on:
     repo: medfreeman/wp-theme-starter
-    branch: travisci
-    tags: false
+    tags: true
