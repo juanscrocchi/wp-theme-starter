@@ -30,10 +30,10 @@ env:
   - CXX=g++-4.8
   - NODE_ENV=development
   - PROJECT_NAME=$(./travis/getName.js)
+  - PROJECT_VERSION=$(./travis/getVersion.js)
   - secure: jpeATxY2WVpnOUk1iHMTG1xR82VL0lLCWR6Zhouepik01NyP5n7Y+/fcBCiwySWdyR5zIo1eTOu9sBtfv1iSNpB8cz1vnYSAMpbJfSsm/ApvRE45NQAGJQbocVXBMWstk1fICtfsAfQGMFCdsXdVrfoKRChb8LlSfcN/opj9/Cr6/FN0Db3osZLAcVI/kPhxpD2D3OTdB4z+CoF8LdCisL0zNbN2qObGfIXajJOiEDpfbhxIXVxwQKgDdOTXq2gOxV08NklSeHoUxI55LWwT8nGFAx8JDuJqfWk2Uge2VX9lGWzG8v9ULQWYzhvx+As35WsfRlrxsRg5GWjbkmkU35ZYzvXckgMvKZy6ABOpb48PyDnftTii0G2YgsrO/HnQXU+SZAS/zqlfannC5imzpPnhI7wUptHwsqehWgtztvpBJELOt2oaz7b1AJyhUk/UtWoEpUp3TygJR+TCfhAWAJyKI1NzNOE50aHUgRewPp3cY8HnHpVYcXL/8ajpxQ5F+svqQ6M+31KPLRwd53E+OsOHIInz0ZyLzYChLqn8ZnQrKLMjLWUSD6gMFFMc+Nmg2N1aekszqYptansrkNayq7ToUK8p9h3i0mmgDS29J8wnvB4BiEiRL6ygt85igEpgK76aECrnCNMnHxNc4zEgBHmeUalX2vMWa5k5sPJeIgA=
 before_deploy:
-- echo "Project name is $PROJECT_NAME" 
-- cd ../you_should_probably_change_this/
+- cd ../$PROJECT_NAME/
 - zip -r ../release.zip ./*
 - cd $TRAVIS_BUILD_DIR
 - git config --global user.email "builds@travis-ci.com"
