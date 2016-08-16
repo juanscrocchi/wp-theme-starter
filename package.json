@@ -19,7 +19,7 @@
     "postinstall": "npm run composer -- create-project wp-coding-standards/wpcs:dev-master --no-dev --keep-vcs",
     "test": "npm run lint:js && npm run lint:php",
     "lint:js": "eslint ./assets/js/**/*.jsx? ./gulp/**/*.js",
-    "lint:php": "npm run phpcs",
+    "lint:php": "npm run phpcs -- --extensions=php",
     "dev": "gulp",
     "prod": "gulp build",
     "bower": "bower",
