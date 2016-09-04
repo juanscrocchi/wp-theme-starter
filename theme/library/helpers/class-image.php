@@ -197,13 +197,13 @@ class MOZ_Image {
 			ob_start(); ?>
 
 			<style>
-				.<?php esc_attr_e( $unique ); ?> {
+				.<?php echo esc_attr( $unique ); ?> {
 					background-image: url('<?php self::src( $image, $base_size ); ?>');
 				}
 
 				<?php foreach ( $sizes as $size => $query ) : ?>
 				@media all and <?php echo esc_html( $query ); ?> {
-					.<?php esc_attr_e( $unique ); ?> {
+					.<?php echo esc_attr( $unique ); ?> {
 						background-image: url('<?php self::src( $image, $size ); ?>');
 					}
 				}
