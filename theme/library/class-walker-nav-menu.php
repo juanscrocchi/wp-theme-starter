@@ -164,8 +164,6 @@ class MOZ_Walker_Nav_Menu extends Walker_Nav_Menu {
 	 * @param int    $depth             Depth of current element.
 	 * @param array  $args              An array of arguments.
 	 * @param string $output            Passed by reference. Used to append additional content.
-	 *
-	 * @return null Null on failure with no changes to parameters.
 	 */
 	function display_element( $element, &$children_elements, $max_depth, $depth = 0, $args, &$output ) {
 
@@ -174,7 +172,7 @@ class MOZ_Walker_Nav_Menu extends Walker_Nav_Menu {
 			$element->current_item_ancestor = self::any_children_active( $element, $children_elements );
 		}
 
-		parent::display_element( $element, $children_elements, $max_depth, $depth, $args, $output ) || return null;
+		parent::display_element( $element, $children_elements, $max_depth, $depth, $args, $output );
 	}
 
 
