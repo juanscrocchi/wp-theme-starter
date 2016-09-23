@@ -20,7 +20,7 @@ cache:
 before_install:
 - npm set progress=false
 - npm prune
-after_script: npm run prod
+after_success: npm run prod
 env:
   global:
   - CXX=g++-4.8
