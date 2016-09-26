@@ -28,8 +28,8 @@ env:
   - REPO_NAME=$(basename $TRAVIS_REPO_SLUG)
   - PROJECT_NAME=$(./travis/getName.js)
 before_deploy:
-- cd ../$PROJECT_NAME/
-- zip -r "../${REPO_NAME}-${TRAVIS_TAG}.zip" ./*
+- cd ..
+- zip -r "${REPO_NAME}-${TRAVIS_TAG}.zip" ${PROJECT_NAME}
 - cd $TRAVIS_BUILD_DIR
 deploy:
   provider: releases
