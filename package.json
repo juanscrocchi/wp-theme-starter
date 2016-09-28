@@ -16,7 +16,8 @@
     "gulp"
   ],
   "scripts": {
-    "postinstall": "npm run composer -- create-project wp-coding-standards/wpcs:dev-master --no-dev --keep-vcs",
+    "postinstall": "npm run bower -- install && npm run install:wpcs",
+    "install:wpcs": "npm run rimraf -- wpcs && npm run composer -- create-project wp-coding-standards/wpcs:dev-master --no-dev --keep-vcs",
     "test": "npm run lint:js && npm run lint:php",
     "lint:js": "eslint ./assets/js/**/*.jsx? ./gulp/**/*.js",
     "lint:php": "npm run phpcs -- --extensions=php",
@@ -24,7 +25,8 @@
     "prod": "gulp build",
     "bower": "bower",
     "composer": "php ./node_modules/getcomposer/composer.phar",
-    "phpcs": "./wpcs/vendor/bin/phpcs"
+    "phpcs": "./wpcs/vendor/bin/phpcs",
+    "rimraf": "rimraf"
   },
   "engines": {
     "node": ">=5.0.0"
@@ -74,6 +76,7 @@
     "node-sass": "^3.8.0",
     "postcss-loader": "^0.13.0",
     "precss": "^1.4.0",
+    "rimraf": "^2.5.4",
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
