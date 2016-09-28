@@ -28,11 +28,11 @@ module.exports = deepMerge({
 						{
 							test: /\.svg$/i,
 							include: /\/svg\/.*/,
-							loader: 'file-loader?name=svg/[name].[ext]!image-webpack'
+							loader: 'file-loader?name=svg/[name].[ext]!img'
 						}
 					]
 				},
-				imageWebpackLoader: {
+				imagemin: {
 					svgo: {
 						plugins: [
 							{

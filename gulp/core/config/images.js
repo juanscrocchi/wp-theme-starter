@@ -24,7 +24,7 @@ module.exports = deepMerge({
 					loaders: [
 						{
 							test: /\.(jpe?g|png|gif)$/i,
-							loader: 'file-loader?name=img/[name].[ext]!image-webpack'
+							loader: 'file-loader?name=img/[name].[ext]!img'
 						},
 						{
 							test: /\.(ico|webp)$/i,
@@ -32,8 +32,7 @@ module.exports = deepMerge({
 						}
 					]
 				},
-				imageWebpackLoader: {
-					bypassOnDebug: true,
+				imagemin: {
 					optimizationLevel: 7,
 					interlaced: false,
 					pngquant: {

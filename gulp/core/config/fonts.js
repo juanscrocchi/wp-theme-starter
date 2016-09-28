@@ -37,11 +37,11 @@ module.exports = deepMerge({
 						{
 							test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
 							include: /\/fonts\/.*/,
-							loader: 'url?limit=10000&mimetype=image/svg+xml&name=fonts/[name].[ext]!image-webpack'
+							loader: 'url?limit=10000&mimetype=image/svg+xml&name=fonts/[name].[ext]!img'
 						}
 					]
 				},
-				imageWebpackLoader: {
+				imagemin: {
 					svgo: {
 						plugins: [
 							{
