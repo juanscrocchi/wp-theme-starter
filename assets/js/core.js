@@ -13,5 +13,5 @@ import 'babel-polyfill';
 import 'picturefill';
 
 /** Lazyload Images */
-import 'lazysizes/plugins/bgset/ls.bgset.js';
+import 'lazysizes/plugins/bgset/ls.bgset';
 import 'lazysizes';

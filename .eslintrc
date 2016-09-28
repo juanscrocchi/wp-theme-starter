@@ -16,6 +16,22 @@
   },
   "rules": {
     "indent": [2, "tab", {"SwitchCase": 1}],
-    "comma-dangle": 0
+    "comma-dangle": 0,
+    "no-tabs": 0
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        extensions: [
+          ".js",
+          ".jsx"
+        ],
+        moduleDirectory: [
+          "node_modules",
+          "bower_components"
+        ]
+      },
+      "webpack"
+    }
   }
 }
