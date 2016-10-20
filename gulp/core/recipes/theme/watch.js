@@ -12,7 +12,7 @@ var config = require('../../config/theme');
  * @param done
  */
 module.exports = function (done) {
-	watch(config.paths.watch, function () {
+	watch(config.paths.watch, config.options.watch, function () {
 		gulp.start('theme:dev');
 	});
 

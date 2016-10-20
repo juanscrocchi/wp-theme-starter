@@ -32,6 +32,7 @@ module.exports = deepMerge({
 			preserve: new RegExp([
 				"(^|\\s)Template Name:.*"
 			].join('|'), 'g')
-		}
+		},
+		watch: {}
 	}
 }, overrides);
