@@ -46,7 +46,7 @@ class MInc_Utils {
 			return false;
 		}
 
-		return sanitize_title( $menu_obj->name );
+		return $menu_obj->name;
 	}
 
 	/**
