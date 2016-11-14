@@ -26,11 +26,12 @@ below and see function theme_scripts_localize.
 add_action( 'wp_enqueue_scripts', 'theme_scripts_localize', 20 );
 */
 
-// Add inline scripts to the page head.
+// Add the inline script setting the 'js' class to the 'body' tag.
 add_action( 'wp_head', 'theme_head_inline_scripts', 1, 2 );
 
 /**--- Filters ---**/
 
+// Add async and defer tags to the theme head inline script.
 add_filter( 'script_loader_tag', 'theme_script_add_async_attribute', 10, 2 );
 
 /*
