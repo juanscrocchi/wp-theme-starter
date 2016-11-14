@@ -31,7 +31,7 @@ add_action( 'wp_head', 'theme_head_inline_scripts', 1, 2 );
 
 /**--- Filters ---**/
 
-// Add async and defer tags to the theme head inline script.
+// Add async and defer tags to the theme core js file.
 add_filter( 'script_loader_tag', 'theme_script_add_async_attribute', 10, 2 );
 
 // Remove wordpress version from the 'generator' page head tag.
