@@ -34,6 +34,9 @@ add_action( 'wp_head', 'theme_head_inline_scripts', 1, 2 );
 // Add async and defer tags to the theme head inline script.
 add_filter( 'script_loader_tag', 'theme_script_add_async_attribute', 10, 2 );
 
+// Remove wordpress version from the 'generator' page head tag.
+add_filter( 'the_generator', 'theme_remove_wordpress_version' );
+
 /*
 	=========================================
 		HOOKED Functions
@@ -238,3 +241,13 @@ if ( ! function_exists( 'theme_script_add_async_attribute' ) ) {
 	}
 }
 
+if ( ! function_exists( 'theme_remove_wordpress_version' ) ) {
+	/**
+	 * Remove wordpress
+	 * version from
+	 * 'generator' head tag.
+	 */
+	function theme_remove_wordpress_version() {
+		return '';
+	}
+}
