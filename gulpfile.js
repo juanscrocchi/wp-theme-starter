@@ -31,6 +31,7 @@ gulp.task('default', [
 	    'svg:clean',
 	 'sprite:watch',
 	 'images:clean',
+   'favicons:watch',
 	'scripts:watch',
 	 'styles:clean',
 	  'theme:watch',
@@ -42,6 +43,7 @@ gulp.task('build', [
 	   'svg:clean',
 	 'sprite:prod',
 	'images:clean',
+   'favicons:prod',
 	'scripts:prod',
 	'styles:clean',
 	  'theme:prod'
@@ -79,6 +81,14 @@ gulp.task('sprite:watch', ['sprite:dev'],   lazyQuire(require, './gulp/core/reci
  * Images
  */
 gulp.task('images:clean', [],               lazyQuire(require, './gulp/core/recipes/images/clean'));
+
+/**
+ * Favicons
+ */
+gulp.task('favicons:clean', [],               lazyQuire(require, './gulp/core/recipes/favicons/clean'));
+gulp.task('favicons:dev',   ['favicons:clean'], lazyQuire(require, './gulp/core/recipes/favicons/dev'));
+gulp.task('favicons:prod',  ['favicons:clean'], lazyQuire(require, './gulp/core/recipes/favicons/prod'));
+gulp.task('favicons:watch', ['favicons:dev'],   lazyQuire(require, './gulp/core/recipes/favicons/watch'));
 
 
 /**

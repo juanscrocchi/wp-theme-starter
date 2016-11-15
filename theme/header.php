@@ -15,6 +15,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
+	<?php get_template_part( 'assets/favicons/favicons' ); ?>
 	<?php wp_head(); ?>
 </head>
 <body class="site__body">

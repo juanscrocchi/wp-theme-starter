@@ -19,6 +19,8 @@
  *  string license            The theme's license
  *  string licenseURI         The theme license's URI
  *  array  tags               Keywords that could be associated with the theme
+ *  string appName            The site's name (for use in app manifests w favicons)
+ *  string appDescription     The site's description (for use in app manifests w favicons)
  * }
  */
 module.exports = {
@@ -29,5 +31,8 @@ module.exports = {
 	version: '0.1.0',
 	author: 'John & Jane Doe <jd@example.com>',
 	authorURI: 'http://example.com',
-	license: 'GPLv2 or later'
+	license: 'GPLv2 or later',
+
+	appName: 'My example site',
+	appDescription: 'Serving you since 2000'
 };

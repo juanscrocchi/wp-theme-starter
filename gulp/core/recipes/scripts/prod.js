@@ -12,6 +12,7 @@ var pumped       = require('../../utils/pumped');
 var config       = require('../../config/scripts');
 var fonts        = require('../../config/fonts');
 var images       = require('../../config/images');
+var favicons     = require('../../config/favicons');
 var styles       = require('../../config/styles');
 var svg          = require('../../config/svg');
 
