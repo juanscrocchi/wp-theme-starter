@@ -1,4 +1,5 @@
 var bsConfig = require('../config/browser-sync');
+var proto = bsConfig.https ? 'https' : 'http';
 var port = bsConfig.port || 3000;
 
 module.exports = [
@@ -15,7 +16,7 @@ module.exports = [
 	' */',
 	'add_action( \'wp_head\', function () { ?>',
 	'\t<script type="text/javascript" id="__bs_script__">//<![CDATA[',
-	'\t\tdocument.write("<script async src=\'http://HOST:' + port + '/browser-sync/browser-sync-client.js\'><\\/script>".replace("HOST", location.hostname));',
+	'\t\tdocument.write("<script async src=\'' + proto + '://HOST:' + port + '/browser-sync/browser-sync-client.js\'><\\/script>".replace("HOST", location.hostname));',
 	'\t//]]></script>',
 	'<?php }, 999);'
 ].join('\n');
