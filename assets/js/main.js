@@ -1,5 +1,6 @@
 /* eslint-disable import/imports-first */
 /* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable import/no-dynamic-require */
 /* eslint import/no-unresolved: [2, { ignore: ['^glob:'] }] */
 
 /**
@@ -9,6 +10,9 @@
  *
  */
 import './vendor/webpack.publicPath';
+
+/* Bootstrap */
+require(`bootstrap-loader/lib/bootstrap.loader?configFilePath=${__dirname}/vendor/.bootstraprc!bootstrap-loader`);
 
 /**
  * Import

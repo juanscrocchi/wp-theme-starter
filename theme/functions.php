@@ -175,7 +175,7 @@ if ( ! function_exists( 'theme_scripts' ) ) {
 		wp_enqueue_script( 'html5shiv', '//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js' );
 		wp_script_add_data( 'html5shiv', 'conditional', 'lt IE 9' );
 		wp_enqueue_script( 'core', "$theme_dir/assets/js/core.js", array(), null, false );
-		wp_enqueue_script( 'main', "$theme_dir/assets/js/main.js", array(), null, true );
+		wp_enqueue_script( 'main', "$theme_dir/assets/js/main.js", array( 'jquery' ), null, true );
 	}
 }
 
