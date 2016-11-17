@@ -37,6 +37,10 @@ module.exports = function () {
 				{
 					match: /<meta name="apple-mobile-web-app.*\n/g,
       				replacement: ''
+				},
+				{
+					match: 'stylesheet_directory_uri',
+					replacement: '<?php echo get_stylesheet_directory_uri(); ?>'
 				}
 			]
 		}))

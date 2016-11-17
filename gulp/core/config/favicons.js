@@ -29,7 +29,7 @@ module.exports = deepMerge({
     	developerName: project.author,
     	developerURL: project.authorURI,
     	background: '#fff',
-    	path: assets.src + '/favicons',
+    	path: '@@stylesheet_directory_uri/' + assets.src + '/favicons',
     	display: 'browser',
     	orientation: 'portrait',
     	start_url: '',
