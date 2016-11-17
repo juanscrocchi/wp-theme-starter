@@ -27,7 +27,7 @@ import 'glob:../img/**/*.{gif,ico,jpg,jpeg,png,webp}';
  * sass
  *
  */
-import 'glob:../scss/*.scss';
+import '../scss/main.scss';
 /**
  * Import
  * svgs
