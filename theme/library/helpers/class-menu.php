@@ -38,6 +38,10 @@ class MOZ_Menu {
 	 * @returns string
 	 */
 	public static function get_nav_menu( $theme_location = 'primary', $extras = array() ) {
+		$container = isset( $extras['container'] )
+			? $extras['container']
+			: 'nav';
+
 		$menu_class = isset( $extras['menu_class'] ) && ! empty( $extras['menu_class'] )
 			? $extras['menu_class']
 			: 'menu';
@@ -54,11 +58,14 @@ class MOZ_Menu {
 		if ( $show_level_class ) {
 			$wrap_class .= " {$menu_class}__list--level-0";
 		}
+		if ( isset( $extras['wrap_class'] ) ) {
+			$wrap_class .= " {$extras['wrap_class']}";
+		}
 
 		return wp_nav_menu( array_merge( array(
 			'echo'             => false,
 			'theme_location'   => $theme_location,
-			'container'        => 'nav',
+			'container'        => $container,
 			'container_class'  => $container_class,
 			'menu_class'       => $menu_class,
 			'show_level_class' => $show_level_class,
