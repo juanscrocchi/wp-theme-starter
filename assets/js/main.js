@@ -33,7 +33,7 @@ import 'glob:../scss/*.scss';
  * svgs
  *
  */
-import 'glob:../svg/**/*.svg!../svg/sprite/**/*.svg';
+import 'glob:../svg/**/*.svg';
 
 /**
  * Your theme's js starts
