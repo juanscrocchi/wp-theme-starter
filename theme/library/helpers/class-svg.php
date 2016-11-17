@@ -22,9 +22,14 @@ class MOZ_SVG {
 	 * @return string
 	 */
 	public static function get_svg( $filename ) {
-		ob_start();
-			locate_template( "assets/svg/$filename.svg", true, false );
-		return ob_get_clean();
+		$svgfile = locate_template( "assets/svg/$filename.svg", false, false );
+		if ( '' !== $svgfile ) {
+			ob_start();
+				echo file_get_contents( $svgfile );
+			return ob_get_clean();
+		}
+
+		return '';
 	}
 
 
@@ -39,6 +44,8 @@ class MOZ_SVG {
 			'svg' => array(
 				'width' => array(),
 				'height' => array(),
+				'enable-background' => array(),
+				'preserveaspectratio' => array(),
 				'viewbox' => array(),
 				'version' => array(),
 				'xmlns' => array(),
@@ -54,6 +61,20 @@ class MOZ_SVG {
 			'path' => array(
 				'd' => array(),
 				'id' => array(),
+				'fill' => array(),
+				'stroke' => array(),
+				'stroke-miterlimit' => array(),
+			),
+			'polygon' => array(
+				'fill' => array(),
+				'points' => array(),
+			),
+			'rect' => array(
+				'x' => array(),
+				'y' => array(),
+				'fill' => array(),
+				'width' => array(),
+				'height' => array(),
 			),
 			'use', array(
 				'xmlns:xlink' => '',
