@@ -25,7 +25,7 @@ class MOZ_SVG {
 		$svgfile = locate_template( "assets/svg/$filename.svg", false, false );
 		if ( '' !== $svgfile ) {
 			ob_start();
-				echo file_get_contents( $svgfile );
+				include( $svgfile );
 			return ob_get_clean();
 		}
 
