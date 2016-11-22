@@ -14,6 +14,7 @@
  */
 
 // utilities
+@import "helpers/typography";
 @import "helpers/functions/opposite-direction";
 @import "helpers/functions/parseInt";
 @import "helpers/functions/easing";
@@ -66,4 +67,3 @@
 @import "elements/site";
 @import "elements/hero";
 @import "elements/menu";
-@import "elements/typography";
