@@ -14,7 +14,6 @@
  */
 
 // utilities
-@import "helpers/typography";
 @import "helpers/functions/opposite-direction";
 @import "helpers/functions/parseInt";
 @import "helpers/functions/easing";
@@ -23,6 +22,7 @@
 @import "helpers/mixins/bp";
 
 // styling utilities
+@import "helpers/typography";
 @import "helpers/mixins/fit";
 @import "helpers/mixins/list";
 @import "helpers/mixins/reset";
