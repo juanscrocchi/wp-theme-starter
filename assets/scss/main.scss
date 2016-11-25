@@ -22,8 +22,9 @@
 @import "helpers/mixins/bp";
 
 // styling utilities
-@import "helpers/globals/typography";
 @import "helpers/globals/normalize";
+@import "helpers/globals/typography";
+@import "helpers/globals/responsive";
 
 @import "helpers/mixins/fit";
 @import "helpers/mixins/list";
