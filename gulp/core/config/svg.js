@@ -28,7 +28,7 @@ module.exports = deepMerge({
 						{
 							test: /\.svg$/i,
 							include: /\/svg\/.*/,
-							loader: 'file-loader?name=svg/[name].[ext]!img'
+							loader: 'file-loader?name=svg/[name].[ext]'
 						}
 					]
 				},
