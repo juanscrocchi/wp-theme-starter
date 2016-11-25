@@ -45,7 +45,7 @@ class MOZ_SVG {
 				'width' => array(),
 				'height' => array(),
 				'enable-background' => array(),
-				'preserveaspectratio' => array(),
+				'preserveAspectRatio' => array(),
 				'viewbox' => array(),
 				'version' => array(),
 				'xmlns' => array(),
@@ -61,24 +61,31 @@ class MOZ_SVG {
 			'path' => array(
 				'd' => array(),
 				'id' => array(),
+				'class' => array(),
 				'fill' => array(),
 				'stroke' => array(),
 				'stroke-miterlimit' => array(),
 			),
 			'polygon' => array(
+				'class' => array(),
 				'fill' => array(),
 				'points' => array(),
 			),
 			'rect' => array(
 				'x' => array(),
 				'y' => array(),
+				'class' => array(),
 				'fill' => array(),
 				'width' => array(),
 				'height' => array(),
+				'transform' => array(),
 			),
-			'use', array(
+			'use' => array(
 				'xmlns:xlink' => '',
 				'xlink:href'  => '',
+			),
+			'style' => array(
+				'type' => '',
 			),
 		));
 	}
