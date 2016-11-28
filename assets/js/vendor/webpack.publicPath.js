@@ -1,5 +1,5 @@
-/*eslint "no-underscore-dangle": 0*/
-/*eslint "camelcase": 0*/
+/* eslint "no-underscore-dangle":  */
+/* eslint "camelcase": 0 */
 
 /**
  * Set Webpack's
