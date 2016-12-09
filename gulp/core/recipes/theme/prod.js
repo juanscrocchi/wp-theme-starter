@@ -16,6 +16,9 @@ var config       = require('../../config/theme');
 var style        = require('../../templates/wordpress-style-css.js');
 var phpHeaders   = require('../../templates/wordpress-php-headers.js');
 
+// date
+var date         = new Date();
+
 
 /**
  * Move the Theme to
@@ -39,6 +42,10 @@ module.exports = function () {
 			patterns: [
 				{
 					json: phpHeaders
+				},
+				{
+					match: 'time',
+					replacement: date.getTime()
 				}
 			]
 		}))
