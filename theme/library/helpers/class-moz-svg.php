@@ -17,7 +17,8 @@ class MOZ_SVG {
 	 * Get a given svg's
 	 * markup
 	 *
-	 * @param string $filename The name of an svg file in corresponding folder.
+	 * @param string  $filename The name of an svg file in corresponding folder.
+	 * @param boolean $absolute Whether to load an absolute file, or an svg in the theme's assets/svg folder.
 	 *
 	 * @return string
 	 */
@@ -40,7 +41,8 @@ class MOZ_SVG {
 	 * Print a given svg's
 	 * markup
 	 *
-	 * @param string $filename The name of an svg file in corresponding folder.
+	 * @param string  $filename The name of an svg file in corresponding folder.
+	 * @param boolean $absolute Whether to load an absolute file, or an svg in the theme's assets/svg folder.
 	 */
 	public static function svg( $filename, $absolute = false ) {
 		echo wp_kses( self::get_svg( $filename, $absolute ), array(
@@ -60,6 +62,8 @@ class MOZ_SVG {
 				'stroke-width' => array(),
 				// 'fill' => array(),
 				'fill-rule' => array(),
+				'id' => array(),
+				'transform' => array(),
 			),
 			'path' => array(
 				'd' => array(),
@@ -68,6 +72,15 @@ class MOZ_SVG {
 				'fill' => array(),
 				'stroke' => array(),
 				'stroke-miterlimit' => array(),
+			),
+			'lineargradient' => array(
+				'id' => array(),
+				'gradientunits' => array(),
+				'x1' => array(),
+				'y1' => array(),
+				'x2' => array(),
+				'y2' => array(),
+				'gradienttransform' => array(),
 			),
 			'polygon' => array(
 				'class' => array(),
@@ -84,11 +97,15 @@ class MOZ_SVG {
 				'transform' => array(),
 			),
 			'use' => array(
-				'xmlns:xlink' => '',
-				'xlink:href'  => '',
+				'xmlns:xlink' => array(),
+				'xlink:href' => array(),
 			),
 			'style' => array(
-				'type' => '',
+				'type' => array(),
+			),
+			'stop' => array(
+				'offset' => array(),
+				'style' => array(),
 			),
 		));
 	}
