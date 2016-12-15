@@ -21,12 +21,15 @@ class MOZ_SVG {
 	 *
 	 * @return string
 	 */
-	public static function get_svg( $filename ) {
-		$svgfile = locate_template( "assets/svg/$filename.svg", false, false );
+	public static function get_svg( $filename, $absolute = false ) {
+		$svgfile = '';
+		if ( ! $absolute ) {
+			$svgfile = locate_template( "assets/svg/$filename.svg", false, false );
+		} else if ( file_exists( $filename ) ) {
+			$svgfile = $filename;
+		}
 		if ( '' !== $svgfile ) {
-			ob_start();
-				include( $svgfile );
-			return ob_get_clean();
+			return file_get_contents( $svgfile );
 		}
 
 		return '';
@@ -39,8 +42,8 @@ class MOZ_SVG {
 	 *
 	 * @param string $filename The name of an svg file in corresponding folder.
 	 */
-	public static function svg( $filename ) {
-		echo wp_kses( self::get_svg( $filename ), array(
+	public static function svg( $filename, $absolute = false ) {
+		echo wp_kses( self::get_svg( $filename, $absolute ), array(
 			'svg' => array(
 				'width' => array(),
 				'height' => array(),
