@@ -52,8 +52,9 @@ class MInc_Post_Type_List_Custom_Control extends WP_Customize_Control {
 		}
 		?>
 			<label>
-				<span class="customize-post-type-dropdown"><?php echo esc_html( $this->label ); ?></span>
-				<select name="<?php echo esc_attr( $this->id ); ?>" id="<?php echo esc_attr( $this->id ); ?>" <?php echo esc_attr( $this->get_link() ); ?>>
+				<span class="customize-post-type-dropdown customize-control-title"><?php echo esc_html( $this->label ); ?></span>
+				<span class="description customize-control-description"><?php echo esc_html( $this->description ); ?></span>
+				<select name="<?php echo esc_attr( $this->id ); ?>" id="<?php echo esc_attr( $this->id ); ?>" <?php $this->link(); ?>>
 					<option value="0"><?php esc_attr_e( '— Select —' ); ?></option>
 				<?php
 				foreach ( $this->posts as $post ) {
