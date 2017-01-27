@@ -33,7 +33,7 @@ var bSSnippet    = require('../../templates/browser-sync-snippet');
  */
 module.exports = function () {
 	var filterPHP  = filter('**/*.php', { restore: true });
-	var filterFunc = filter('functions.php', { restore: true });
+	var filterFunc = filter('**/functions.php', { restore: true });
 
 	return gulp.src(config.paths.src)
 		.pipe(plumber())
