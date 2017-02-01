@@ -14,6 +14,9 @@ add_action( 'template_redirect', 'theme_disable_author_pages' );
 // Remove wordpress version from the 'generator' page head tag.
 add_filter( 'the_generator', 'theme_remove_wordpress_version' );
 
+// Disable xml-rpc.
+add_filter( 'xmlrpc_enabled', '__return_false' );
+
 if ( ! function_exists( 'theme_disable_author_pages' ) ) {
 	/**
 	 * Disable author pages
