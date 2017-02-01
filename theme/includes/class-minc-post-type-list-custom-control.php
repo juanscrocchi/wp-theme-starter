@@ -5,6 +5,9 @@
  * @package @@name
  */
 
+// Make sure this file is called by wp.
+defined( 'ABSPATH' ) or die();
+
 ?>
 
 <?php
