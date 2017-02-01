@@ -29,22 +29,10 @@ add_action( 'wp_enqueue_scripts', 'theme_scripts_localize', 20 );
 // Add the inline script setting the 'js' class to the 'body' tag.
 add_action( 'wp_head', 'theme_head_inline_scripts', 1, 2 );
 
-// Disable author pages and redirect to home page.
-add_action( 'template_redirect', 'theme_disable_author_pages' );
-
 /**--- Filters ---**/
 
 // Add async and defer tags to the theme core js file.
 add_filter( 'script_loader_tag', 'theme_script_add_async_attribute', 10, 2 );
-
-// Remove wordpress version from the 'generator' page head tag.
-add_filter( 'the_generator', 'theme_remove_wordpress_version' );
-
-/*
-	=========================================
-		HOOKED Functions
-	=========================================
-*/
 
 /**--- Actions ---**/
 
@@ -229,31 +217,6 @@ if ( ! function_exists( 'theme_head_inline_scripts' ) ) {
 	}
 }
 
-if ( ! function_exists( 'theme_disable_author_pages' ) ) {
-	/**
-	 * Disable author pages
-	 *
-	 * This function is registered to the template_redirect hook and checks
-	 * to redirect the user to the homepage
-	 */
-	function theme_disable_author_pages() {
-	    global $post;
-
-	    $author_request = false;
-	    if ( is_404() ) {
-	        if ( ! get_query_var( 'author' ) && ! get_query_var( 'author_name' ) ) {
-	            return;
-	        }
-	        $author_request = true;
-	    }
-
-	    if ( is_author() || $author_request ) {
-	        wp_redirect( home_url(), '301' );
-	        exit;
-	    }
-	}
-}
-
 if ( ! function_exists( 'theme_script_add_async_attribute' ) ) {
 	/**
 	 * Add async
@@ -268,16 +231,5 @@ if ( ! function_exists( 'theme_script_add_async_attribute' ) ) {
 			return $tag;
 		}
 		return str_replace( ' src', ' async defer src', $tag );
-	}
-}
-
-if ( ! function_exists( 'theme_remove_wordpress_version' ) ) {
-	/**
-	 * Remove wordpress
-	 * version from
-	 * 'generator' head tag.
-	 */
-	function theme_remove_wordpress_version() {
-		return '';
 	}
 }
