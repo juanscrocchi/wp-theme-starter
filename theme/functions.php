@@ -145,6 +145,7 @@ if ( ! function_exists( 'theme_setup' ) ) {
 		include "$theme_dir/library/library-loader.php";
 		include "$theme_dir/includes/includes-loader.php";
 		include "$theme_dir/components/components-loader.php";
+		include "$theme_dir/functions/functions-loader.php";
 	}
 }// End if().
 
