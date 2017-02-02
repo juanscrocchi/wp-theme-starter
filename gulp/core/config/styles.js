@@ -78,7 +78,7 @@ module.exports = deepMerge({
 			},
 			defaults: {
 				plugins: [
-					new ExtractTextWebpackPlugin('css/main.css')
+					new ExtractTextWebpackPlugin('css/[name].css')
 				],
 				sassLoader: {},
 				postcss: [
