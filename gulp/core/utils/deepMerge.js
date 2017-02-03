@@ -1,12 +1,33 @@
-var merge = require('webpack-merge');
+var lodash = require('lodash');
 
 
 /**
- * Simple webpack-merge wrapper to
- * deep merge two webpack configs (objects with arrays)
+ * Simple lodash wrapper to
+ * deep merge two objects
  *
  * @param a
- * @param ...b
+ * @param b
  * @returns {*}
  */
-module.exports = merge.smart;
+module.exports = function (a, b) {
+	return lodash.mergeWith(a, b, deep);
+};
+
+
+/**
+ * Utility for lodash.merge
+ * to manage deeply merging
+ * objects as well as the
+ * arrays they contain
+ *
+ * @param a
+ * @param b
+ * @returns {Array.<T>|string}
+ */
+function deep(a, b) {
+	if (lodash.isArray(a) && lodash.isArray(b)) {
+		return lodash.union(a, b);
+	} else if (!lodash.isArray(a) && lodash.isArray(b)) {
+		return lodash.union([a], b);
+	}
+}

@@ -1,5 +1,5 @@
 // utils
-var deepMerge = require('../utils/deepMerge');
+var configMerge = require('../utils/configMerge');
 
 var ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 var precss       = require('precss');
@@ -17,9 +17,13 @@ var assets = require('./common').paths.assets;
  *
  * @type {{}}
  */
-module.exports = deepMerge({
+module.exports = configMerge({
 	paths: {
-		clean: assets.dest + '/css/**/*.{css,map}'
+		clean: assets.dest + '/css/**/*.{css,map}',
+		src: [
+			assets.src + '/scss/*.scss',
+			'!' + assets.src + '/scss/**/_*'
+		]
 	},
 
 	options: {

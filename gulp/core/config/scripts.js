@@ -2,7 +2,7 @@ var path = require('path');
 var webpack = require('webpack-stream').webpack;
 
 // utils
-var deepMerge = require('../utils/deepMerge');
+var configMerge = require('../utils/configMerge');
 
 // config
 var overrides = require('../../config/scripts');
@@ -15,9 +15,8 @@ var assets = require('./common').paths.assets;
  *
  * @type {{}}
  */
-module.exports = deepMerge({
+module.exports = configMerge({
 	paths: {
-		watch: assets.src + '/js/**/*.js',
 		src: [
 			assets.src + '/js/*.js',
 			'!' + assets.src + '/js/**/_*'

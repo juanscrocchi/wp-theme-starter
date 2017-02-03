@@ -1,5 +1,5 @@
 // utils
-var deepMerge = require('../utils/deepMerge');
+var webpackMerge = require('../utils/webpackMerge');
 
 // config
 var overrides = require('../../config/theme');
@@ -13,7 +13,7 @@ var theme = paths.theme;
  *
  * @type {{}}
  */
-module.exports = deepMerge({
+module.exports = webpackMerge({
 	paths: {
 		watch: theme.src + '/**/*.{json,php,png,jpg}',
 		src:   theme.src + '/**/*.{json,php,png,jpg}',

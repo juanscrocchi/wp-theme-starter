@@ -1,5 +1,5 @@
 // utils
-var deepMerge = require('../utils/deepMerge');
+var webpackMerge = require('../utils/webpackMerge');
 
 var path = require('path');
 
@@ -15,7 +15,7 @@ var project = require('../../../project.config');
  *
  * @type {{}}
  */
-module.exports = deepMerge({
+module.exports = webpackMerge({
 	paths: {
 		watch: assets.src + '/favicons/favicon.png',
 		src: assets.src + '/favicons/favicon.png',

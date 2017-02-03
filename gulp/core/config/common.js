@@ -1,5 +1,5 @@
 // utils
-var deepMerge = require('../utils/deepMerge');
+var webpackMerge = require('../utils/webpackMerge');
 
 // config
 var project = require('../../../project.config');
@@ -11,7 +11,7 @@ var overrides = require('../../config/common');
  * for all tasks
  *
  */
-module.exports = deepMerge({
+module.exports = webpackMerge({
 	paths: {
 		theme: {
 			src: 'theme',
