@@ -6,6 +6,7 @@ var webpack      = require('webpack');
 var browserSync  = require('browser-sync');
 
 // utils
+var lodash       = require('lodash');
 var webpackMerge = require('../../utils/webpackMerge');
 var logStats     = require('../../utils/webpackLogStats');
 var notifaker    = require('../../utils/notifaker');
@@ -29,7 +30,7 @@ var svg       = require('../../config/svg');
  * @returns {*}
  */
 module.exports = function () {
-	return gulp.src(config.paths.src)
+	return gulp.src(lodash.union(config.paths.src, styles.paths.src))
 		.pipe(plumber())
 
 		.pipe(named()) // vinyl-named is used to allow for
