@@ -33,8 +33,7 @@ module.exports = configMerge({
 			watch: {
 				cache: true,
 				watch: true,
-				devtool: 'eval',
-				keepalive: true
+				devtool: 'eval'
 			},
 
 
