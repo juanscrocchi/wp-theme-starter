@@ -1,5 +1,5 @@
 // utils
-var webpackMerge = require('../utils/webpackMerge');
+var configMerge = require('../utils/configMerge');
 
 // config
 var overrides = require('../../config/svg');
@@ -12,7 +12,7 @@ var assets = require('./common').paths.assets;
  *
  * @type {{}}
  */
-module.exports = webpackMerge({
+module.exports = configMerge({
 	paths: {
 		clean: [
 			assets.dest + '/svg/**/*.svg',
@@ -24,27 +24,37 @@ module.exports = webpackMerge({
 		webpack: {
 			defaults: {
 				module: {
-					loaders: [
+					rules: [
 						{
 							test: /\.svg$/i,
 							include: /\/svg\/.*/,
-							loader: 'file-loader?name=svg/[name].[ext]'
+							use: [
+								{
+									loader: 'file-loader',
+									options: {
+										name: 'svg/[name].[ext]'
+									}
+								},
+								{
+									loader: 'img-loader',
+									options: {
+										svgo: {
+											plugins: [
+												{
+													removeViewBox: false
+												},
+												{
+													removeEmptyAttrs: false
+												}
+											]
+										}
+									}
+								}
+							]
 						}
 					]
-				},
-				imagemin: {
-					svgo: {
-						plugins: [
-							{
-								removeViewBox: false
-							},
-							{
-								removeEmptyAttrs: false
-							}
-						]
-					}
 				}
-			},
+			}
 		}
 	}
 

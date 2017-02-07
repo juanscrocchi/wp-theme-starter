@@ -1,5 +1,5 @@
 // utils
-var webpackMerge = require('../utils/webpackMerge');
+var configMerge = require('../utils/configMerge');
 
 // config
 var overrides = require('../../config/fonts');
@@ -12,7 +12,7 @@ var assets = require('./common').paths.assets;
  *
  * @type {{}}
  */
-module.exports = webpackMerge({
+module.exports = configMerge({
 	paths: {
 		clean: assets.dest + '/fonts/**/*.{eot,otf,ttf,woff,woff2,svg}'
 	},
@@ -21,34 +21,71 @@ module.exports = webpackMerge({
 		webpack: {
 			defaults: {
 				module: {
-					loaders: [
+					rules: [
 						{
 							test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
-							loader: 'url?limit=10000&mimetype=application/font-woff&name=fonts/[name].[ext]'
+							use: [
+								{
+									loader: 'url-loader',
+									options: {
+										limit: 10000,
+										mimetype: 'application/font-woff',
+										name: 'fonts/[name].[ext]'
+									}
+								}
+							]
 						},
 						{
 							test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-							loader: 'url?limit=10000&mimetype=application/octet-stream&name=fonts/[name].[ext]'
+							use: [
+								{
+									loader: 'url-loader',
+									options: {
+										limit: 10000,
+										mimetype: 'application/octet-stream',
+										name: 'fonts/[name].[ext]'
+									}
+								}
+							]
 						},
 						{
 							test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-							loader: 'file?name=fonts/[name].[ext]'
+							use: [
+								{
+									loader: 'file-loader',
+									options: {
+										name: 'fonts/[name].[ext]'
+									}
+								}
+							]
 						},
 						{
 							test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
 							include: /\/fonts\/.*/,
-							loader: 'url?limit=10000&mimetype=image/svg+xml&name=fonts/[name].[ext]!img'
+							use: [
+								{
+									loader: 'url-loader',
+									options: {
+										limit: 10000,
+										mimetype: 'image/svg+xml',
+										name: 'fonts/[name].[ext]'
+									}
+								},
+								{
+									loader: 'img-loader',
+									options: {
+										svgo: {
+											plugins: [
+												{
+													removeUselessDefs: false
+												}
+											]
+										}
+									}
+								}
+							]
 						}
 					]
-				},
-				imagemin: {
-					svgo: {
-						plugins: [
-							{
-								removeUselessDefs: false
-							}
-						]
-					}
 				}
 			}
 		}

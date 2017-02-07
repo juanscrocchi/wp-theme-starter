@@ -2,10 +2,10 @@ var gulp         = require('gulp');
 var plumber      = require('gulp-plumber');
 var named        = require('vinyl-named');
 var gulpWebpack  = require('webpack-stream');
+var webpack      = require('webpack');
 var browserSync  = require('browser-sync');
 
 // utils
-var lodash       = require('lodash');
 var webpackMerge = require('../../utils/webpackMerge');
 var logStats     = require('../../utils/webpackLogStats');
 var notifaker    = require('../../utils/notifaker');
@@ -29,7 +29,7 @@ var svg       = require('../../config/svg');
  * @returns {*}
  */
 module.exports = function () {
-	return gulp.src(lodash.union(config.paths.src, styles.paths.src))
+	return gulp.src(config.paths.src)
 		.pipe(plumber())
 
 		.pipe(named()) // vinyl-named is used to allow for
@@ -46,15 +46,17 @@ module.exports = function () {
 				styles.options.webpack.watch,
 				svg.options.webpack.defaults,
 				svg.options.webpack.watch
-			), null, function (err, stats) {
+			),
+			require('webpack'),
+			function (err, stats) {
 				logStats(err, stats, { watch: true });
 
 				// reload browser-sync when
 				// a package is updated
 				browserSync.reload();
 				notifaker(pumped('JS and assets Packaged'));
-   	 	})
-		)
+   	 		}
+   	 	))
 
 		.pipe(gulp.dest(config.paths.dest));
 };

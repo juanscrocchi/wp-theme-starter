@@ -1,4 +1,4 @@
-/* eslint-disable import/imports-first */
+/* eslint-disable import/first */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint import/no-unresolved: [2, { ignore: ['^glob:'] }] */
 

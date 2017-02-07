@@ -2,9 +2,7 @@
 var configMerge = require('../utils/configMerge');
 
 var ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
-var precss       = require('precss');
 var autoprefixer = require('autoprefixer');
-var cssnano      = require('cssnano');
 
 // config
 var overrides = require('../../config/styles');
@@ -31,22 +29,58 @@ module.exports = configMerge({
 			watch: {
 				devtool: 'source-map',
 				module: {
-					loaders: [
+					rules: [
 						{
 							test: /\.scss$/,
-							loader: ExtractTextWebpackPlugin.extract(
-								'style-loader',
-								'css-loader?sourceMap!postcss-loader!sass-loader?sourceMap',
-								{ publicPath: '../' }
-							)
+							use: ExtractTextWebpackPlugin.extract({
+								fallback: 'style-loader',
+								use: [
+									{
+										loader: 'css-loader',
+										options: {
+											sourceMap: true
+										}
+									},
+									{
+										loader: 'postcss-loader',
+										options: {
+											plugins: [
+												autoprefixer()
+											]
+										}
+									},
+									{
+										loader: 'sass-loader',
+										options: {
+											sourceMap: true
+										}
+									}
+								],
+								publicPath: '../'
+							})
 						},
 						{
 							test: /\.css$/,
-							loader: ExtractTextWebpackPlugin.extract(
-								'style-loader',
-								'css-loader?sourceMap!postcss-loader',
-								{ publicPath: '../' }
-							)
+							use: ExtractTextWebpackPlugin.extract({
+								fallback: 'style-loader',
+								use: [
+									{
+										loader: 'css-loader',
+										options: {
+											sourceMap: true
+										}
+									},
+									{
+										loader: 'postcss-loader',
+										options: {
+											plugins: [
+												autoprefixer()
+											]
+										}
+									}
+								],
+								publicPath: '../'
+							})
 						}
 					]
 				}
@@ -54,46 +88,64 @@ module.exports = configMerge({
 
 			prod: {
 				module: {
-					loaders: [
+					rules: [
 						{
 							test: /\.scss$/,
-							loader: ExtractTextWebpackPlugin.extract(
-								'style-loader',
-								'css-loader!postcss-loader!sass-loader',
-								{ publicPath: '../' }
-							)
+							use: ExtractTextWebpackPlugin.extract({
+								fallback: 'style-loader',
+								use: [
+									{
+										loader: 'css-loader',
+										options: {
+											minimize: {
+												autoprefixer: false,
+												discardComments: {
+													removeAll: true
+												}
+											}
+										}
+									},
+									{
+										loader: 'postcss-loader',
+										options: {
+											plugins: [
+												autoprefixer()
+											]
+										}
+									},
+									{
+										loader: 'sass-loader'
+									}
+								],
+								publicPath: '../'
+							})
 						},
 						{
 							test: /\.css$/,
-							loader: ExtractTextWebpackPlugin.extract(
-								'style-loader',
-								'css-loader!postcss-loader',
-								{ publicPath: '../' }
-							)
+							use: ExtractTextWebpackPlugin.extract({
+								fallback: 'style-loader',
+								use: [
+									{
+										loader: 'css-loader'
+									},
+									{
+										loader: 'postcss-loader',
+										options: {
+											plugins: [
+												autoprefixer()
+											]
+										}
+									}
+								],
+								publicPath: '../'
+							})
 						}
 					]
-				},
-				postcss: [
-					cssnano({
-						autoprefixer: false,
-						discardComments: { removeAll: true }
-					})
-				]
+				}
 			},
 			defaults: {
 				plugins: [
 					new ExtractTextWebpackPlugin('css/[name].css')
-				],
-				sassLoader: {},
-				postcss: [
-					precss,
-					autoprefixer({
-						browsers: [
-							'last 2 version',
-							'ie >= 9',
-							'IOS >= 7'
-						]
-					})
 				]
 			},
 		}

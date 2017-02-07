@@ -1,5 +1,5 @@
 var path = require('path');
-var webpack = require('webpack-stream').webpack;
+var webpack = require('webpack');
 
 // utils
 var configMerge = require('../utils/configMerge');
@@ -47,8 +47,6 @@ module.exports = configMerge({
 			// for :prod task
 			prod: {
 				plugins: [
-					new webpack.optimize.DedupePlugin(),
-					new webpack.optimize.OccurenceOrderPlugin(true),
 					new webpack.optimize.UglifyJsPlugin({
 						sourceMap: false,
 						comments: false,
@@ -62,16 +60,36 @@ module.exports = configMerge({
 						}
 					})
 				],
-				eslint: {
-					failOnError: true,
-					failOnWarning: true
+				module: {
+					rules: [
+						{
+							enforce: 'pre',
+							test: /\.jsx?$/,
+							exclude: [
+								/node_modules/,
+								/bower_components/,
+								/vendor/,
+								/polyfills/
+							],
+							use: [
+								{
+									loader: 'eslint-loader',
+									options: {
+										failOnError: true,
+										failOnWarning: true,
+										configFile: path.resolve('./.eslintrc')
+									}
+								}
+							]
+						}
+					]
 				}
 			},
 
 			defaults: {
 				resolve: {
-					extensions: ['', '.js', '.jsx'],
-					modulesDirectories: [
+					extensions: ['.js', '.jsx'],
+					modules: [
 						'node_modules',
 						'bower_components'
 					]
@@ -84,8 +102,9 @@ module.exports = configMerge({
 					colors: true
 				},
 				module: {
-					preLoaders: [
+					rules: [
 						{
+							enforce: 'pre',
 							test: /\.jsx?$/,
 							exclude: [
 								/node_modules/,
@@ -93,10 +112,17 @@ module.exports = configMerge({
 								/vendor/,
 								/polyfills/
 							],
-							loader: 'eslint'
-						}
-					],
-					loaders: [
+							use: [
+								{
+									loader: 'eslint-loader',
+									options: {
+										emitError: true,
+										emitWarning: true,
+										configFile: path.resolve('./.eslintrc')
+									}
+								}
+							]
+						},
 						{
 							test: /\.jsx?$/,
 							exclude: [
@@ -104,25 +130,20 @@ module.exports = configMerge({
 								/bower_components/,
 								/polyfills/
 							],
-							loader: 'babel',
-							query: {
-								presets: ['es2015', 'stage-2'],
-								plugins: ['transform-runtime', 'import-glob']
-							}
+							use: [
+								{
+									loader: 'babel-loader',
+									query: {
+										presets: [
+											['es2015', { loose: true, modules: false }],
+											'stage-2'
+										],
+										plugins: ['transform-runtime', 'import-glob']
+									}
+								}
+							]
 						}
 					]
-				},
-				plugins: [
-					new webpack.ResolverPlugin(
-						new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin(
-							'bower.json', ['main']
-						)
-					)
-				],
-				eslint: {
-					emitError: true,
-					emitWarning: true,
-					configFile: path.resolve('./.eslintrc')
 				}
 			}
 

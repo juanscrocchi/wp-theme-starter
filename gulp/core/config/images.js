@@ -1,5 +1,5 @@
 // utils
-var webpackMerge = require('../utils/webpackMerge');
+var configMerge = require('../utils/configMerge');
 
 // config
 var overrides = require('../../config/images');
@@ -12,7 +12,7 @@ var assets = require('./common').paths.assets;
  *
  * @type {{}}
  */
-module.exports = webpackMerge({
+module.exports = configMerge({
 	paths: {
 		clean: assets.dest + '/img/**/*.{gif,ico,jpg,jpeg,png,webp}'
 	},
@@ -21,26 +21,43 @@ module.exports = webpackMerge({
 		webpack: {
 			defaults: {
 				module: {
-					loaders: [
+					rules: [
 						{
 							test: /\.(jpe?g|png|gif)$/i,
-							loader: 'file-loader?name=img/[name].[ext]!img'
+							use: [
+								{
+									loader: 'file-loader',
+									options: {
+										name: 'img/[name].[ext]'
+									}
+								},
+								{
+									loader: 'img-loader',
+									options: {
+										optimizationLevel: 7,
+										interlaced: false,
+										pngquant: {
+											quality: '65-90',
+											speed: 4
+										}
+									}
+								}
+							]
 						},
 						{
 							test: /\.(ico|webp)$/i,
-							loader: 'file-loader?name=img/[name].[ext]'
+							use: [
+								{
+									loader: 'file-loader',
+									options: {
+										name: 'img/[name].[ext]'
+									}
+								}
+							]
 						}
 					]
-				},
-				imagemin: {
-					optimizationLevel: 7,
-					interlaced: false,
-					pngquant: {
-						quality: '65-90',
-						speed: 4
-					}
 				}
-			},
+			}
 		}
 	}
 }, overrides);

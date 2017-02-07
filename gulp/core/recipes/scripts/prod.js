@@ -2,10 +2,10 @@ var gulp         = require('gulp');
 var plumber      = require('gulp-plumber');
 var named        = require('vinyl-named');
 var gulpWebpack  = require('webpack-stream');
+var webpack      = require('webpack');
 var notify       = require('gulp-notify');
 
 // utils
-var lodash       = require('lodash');
 var webpackMerge = require('../../utils/webpackMerge');
 var pumped       = require('../../utils/pumped');
 
@@ -24,7 +24,7 @@ var svg          = require('../../config/svg');
  * @returns {*}
  */
 module.exports = function () {
-	return gulp.src(lodash.union(config.paths.src, styles.paths.src))
+	return gulp.src(config.paths.src)
 		.pipe(plumber())
 
 		.pipe(named()) // vinyl-named is used to allow for
@@ -41,7 +41,8 @@ module.exports = function () {
 				styles.options.webpack.prod,
 				svg.options.webpack.defaults,
 				svg.options.webpack.prod
-			)
+			),
+			require('webpack')
 		))
 
 		.pipe(gulp.dest(config.paths.dest))
