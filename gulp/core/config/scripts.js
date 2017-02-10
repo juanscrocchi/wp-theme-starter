@@ -45,6 +45,7 @@ module.exports = configMerge({
 			// merged with defaults
 			// for :prod task
 			prod: {
+				devtool: 'source-map',
 				plugins: [
 					new webpack.optimize.UglifyJsPlugin({
 						sourceMap: false,
