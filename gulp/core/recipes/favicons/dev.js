@@ -26,11 +26,22 @@ var config       = require('../../config/favicons');
  */
 module.exports = function () {
 	var filterHTML  = filter('**/*.html', { restore: true });
+	var filterManifest  = filter(['**/browserconfig.xml', '**/*manifest.*'], { restore: true });
 
 	return gulp.src(config.paths.src)
 		.pipe(plumber())
 
 		.pipe(favicons(config.options.favicons))
+		.pipe(filterManifest) // Filter manifest files and replace to relative stylesheet path
+		.pipe(replace({
+			patterns: [
+				{
+					match: 'stylesheet_directory_uri',
+					replacement: config.options.styleSheetPathReplacement
+				}
+			]
+		}))
+		.pipe(filterManifest.restore)
 		.pipe(filterHTML) // Filter html file and
 		.pipe(replace({   // Remove apple-webapp-capable,
 			patterns: [   // see https://github.com/haydenbleasel/favicons/issues/157

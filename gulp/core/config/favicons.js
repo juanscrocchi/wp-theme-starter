@@ -24,6 +24,7 @@ module.exports = deepMerge({
 	},
 
 	options: {
+        styleSheetPathReplacement: 'wp-content/themes/' + project.name,
         favicons: {
     	   appName: project.appName,
     	   appDescription: project.appDescription,
