@@ -47,7 +47,7 @@ module.exports = function () {
 			patterns: [   // see https://github.com/haydenbleasel/favicons/issues/157
 				{
 					match: /<meta name="apple-mobile-web-app.*\n/g,
-      				replacement: ''
+					replacement: ''
 				},
 				{
 					match: 'stylesheet_directory_uri',
@@ -56,9 +56,9 @@ module.exports = function () {
 			]
 		}))
 		.pipe(rename(function (path) { // change its extension to php
-  		  path.extname = ".php";
-  		  return path;
-  		}))
+		  path.extname = ".php";
+		  return path;
+		}))
 		.pipe(filterHTML.restore)
 		.pipe(gulp.dest(config.paths.dest))
 		.pipe(notify({
