@@ -30,7 +30,7 @@ module.exports = function () {
 	return gulp.src(config.paths.src)
 		.pipe(plumber())
 
-		.pipe(favicons(config.options))
+		.pipe(favicons(config.options.favicons))
 		.pipe(filterHTML) // Filter html file and
 		.pipe(replace({   // Remove apple-webapp-capable,
 			patterns: [   // see https://github.com/haydenbleasel/favicons/issues/157
