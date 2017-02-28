@@ -18,7 +18,8 @@
     "indent": [2, "tab", {"SwitchCase": 1}],
     "comma-dangle": 0,
     "no-tabs": 0,
-    "import/no-extraneous-dependencies": 0
+    "import/no-extraneous-dependencies": 0,
+    "linebreak-style": 0
   },
   "settings": {
     "import/resolver": {

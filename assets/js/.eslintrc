@@ -1,5 +1,24 @@
 {
   "rules": {
-    "import/no-extraneous-dependencies": 2
+    "indent": [2, "tab", {"SwitchCase": 1}],
+    "comma-dangle": 0,
+    "no-tabs": 0,
+    "import/no-extraneous-dependencies": 2,
+    "linebreak-style": 0
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        extensions: [
+          ".js",
+          ".jsx"
+        ],
+        moduleDirectory: [
+          "node_modules",
+          "bower_components"
+        ]
+      },
+      "webpack"
+    }
   }
 }
