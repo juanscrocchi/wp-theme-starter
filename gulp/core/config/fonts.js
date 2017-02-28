@@ -72,8 +72,8 @@ module.exports = configMerge({
 									}
 								},
 								{
-									loader: 'img-loader',
-									options: {
+									loader: 'image-webpack-loader',
+									query: {
 										svgo: {
 											plugins: [
 												{

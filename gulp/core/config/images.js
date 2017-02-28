@@ -32,10 +32,14 @@ module.exports = configMerge({
 									}
 								},
 								{
-									loader: 'img-loader',
-									options: {
-										optimizationLevel: 7,
-										interlaced: false,
+									loader: 'image-webpack-loader',
+									query: {
+										optipng: {
+											optimizationLevel: 7,
+										},
+										gifsicle: {
+											interlaced: false
+										},
 										pngquant: {
 											quality: '65-90',
 											speed: 4

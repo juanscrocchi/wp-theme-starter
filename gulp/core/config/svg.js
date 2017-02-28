@@ -1,3 +1,5 @@
+var webpack = require('webpack');
+
 // utils
 var configMerge = require('../utils/configMerge');
 
@@ -23,6 +25,12 @@ module.exports = configMerge({
 	options: {
 		webpack: {
 			defaults: {
+				plugins: [
+					new webpack.LoaderOptionsPlugin({
+						minimize: true,
+						debug: false
+					}),
+				],
 				module: {
 					rules: [
 						{
@@ -36,8 +44,8 @@ module.exports = configMerge({
 									}
 								},
 								{
-									loader: 'img-loader',
-									options: {
+									loader: 'image-webpack-loader',
+									query: {
 										svgo: {
 											plugins: [
 												{
