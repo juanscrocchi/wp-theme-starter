@@ -61,7 +61,7 @@ module.exports = configMerge({
 						},
 						{
 							test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-							include: /\/fonts\/.*/,
+							exclude: /\/svg\/.*/,
 							use: [
 								{
 									loader: 'url-loader',

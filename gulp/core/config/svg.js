@@ -35,7 +35,6 @@ module.exports = configMerge({
 					rules: [
 						{
 							test: /\.svg$/i,
-							include: /\/svg\/.*/,
 							use: [
 								{
 									loader: 'file-loader',
