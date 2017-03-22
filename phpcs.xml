@@ -5,6 +5,10 @@
 	<file>./theme/</file>
 
 	<arg name="warning-severity" value="0"/>
+	<!-- Operate only on php files -->
+	<arg name="extensions" value="php"/>
+	<!-- Show sniffs names -->
+	<arg value="s"/>
 
 	<rule ref="WordPress">
 		<!-- This project needs commented code in block comments, so no enforcing of capital -->

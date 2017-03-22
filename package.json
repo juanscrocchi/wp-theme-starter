@@ -21,7 +21,7 @@
     "test": "npm run lint:scss && npm run lint:js && npm run lint:php",
     "lint:scss": "stylelint ./assets/scss/**/*.scss",
     "lint:js": "eslint ./assets/js/**/*.jsx?",
-    "lint:php": "npm run phpcs -- --extensions=php",
+    "lint:php": "npm run phpcs",
     "dev": "gulp",
     "prod": "gulp build",
     "bower": "bower",
