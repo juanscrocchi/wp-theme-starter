@@ -220,7 +220,7 @@ if ( ! function_exists( 'theme_head_inline_scripts' ) ) {
 		ob_start();
 		// Replace the no-js class with js on the html element.
 ?>
-<script>
+<script type="text/javascript">
 	document.documentElement.className=document.documentElement.className.replace(/\bno-js\b/,'js');
 </script>
 <?php
