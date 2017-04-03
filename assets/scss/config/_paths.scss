@@ -1,6 +1,7 @@
 /* =========================================
 		Paths
    ========================================= */
+
 /**
  * Prefix paths with $p_ to make
  * them easier to find with
@@ -8,10 +9,10 @@
  *
  */
 
-$p_assets: '../';
+$p_assets: "../";
 
-$p_images: $p_assets + 'img/';
+$p_images: $p_assets + "img/";
 
-$p_fonts: $p_assets + 'fonts/';
+$p_fonts: $p_assets + "fonts/";
 
-$p_svg: $p_assets + 'svg/';
+$p_svg: $p_assets + "svg/";

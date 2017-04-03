@@ -1,6 +1,7 @@
 /* =========================================
 		Color Index
    ========================================= */
+
 /**
  * Prefix colors with $c_ this
  * makes them easily findable
@@ -16,6 +17,10 @@
 
 $c_black: #000;
 
+$c_blueviolet: #8a2be2;
+
+$c_cornflowerblue: #6495ed;
+
 $c_white: #fff;
 
 $c_red: #f00;
@@ -26,6 +31,7 @@ $c_green: #0f0;
 /* =========================================
 		Colors Applied
    ========================================= */
+
 /**
  * Prefix applied colors with $ca_
  * this makes them easily findable
@@ -40,7 +46,7 @@ $c_green: #0f0;
 // examples:
 
 // state
-$ca_highlight: blueviolet;
+$ca_highlight: $c_blueviolet;
 
 $ca_error: $c_red;
 
