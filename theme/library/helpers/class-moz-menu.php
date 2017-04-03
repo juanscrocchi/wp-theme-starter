@@ -158,7 +158,8 @@ class MOZ_Menu {
 					$parents[] = $menu_item;
 				}
 
-				if ( ! ( $parent_id = $menu_item->menu_item_parent ) ) {
+				$parent_id = $menu_item->menu_item_parent;
+				if ( ! ( $parent_id ) ) {
 					return array_reverse( $parents );
 				}
 			}

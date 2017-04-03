@@ -123,7 +123,8 @@ class MOZ_Image {
 	 * @return bool
 	 */
 	public static function get_src( $image, $size = 'full' ) {
-		if ( $src = wp_get_attachment_image_src( $image, $size, false ) ) {
+		$src = wp_get_attachment_image_src( $image, $size, false );
+		if ( $src ) {
 			return $src[0];
 		}
 
@@ -171,7 +172,9 @@ class MOZ_Image {
 		$alt = $bgel_attrs['alt'];
 		unset( $bgel_attrs['alt'] );
 
-		$content = MOZ_Html::get_element( 'span', array( 'class' => 'visuallyhidden' ), $alt );
+		$content = MOZ_Html::get_element( 'span', array(
+			'class' => 'visuallyhidden',
+		), $alt );
 
 		$bgel_attrs['class'] .= ' moz-background-picture';
 
@@ -213,7 +216,7 @@ class MOZ_Image {
 
 			<?php
 			$content .= ob_get_clean();
-		}
+		}// End if().
 
 		return MOZ_Html::get_element( 'span', $bgel_attrs, $content );
 	}
@@ -332,7 +335,8 @@ class MOZ_Image {
 
 		$srcset = array();
 		foreach ( $sources as $size ) {
-			if ( $src = wp_get_attachment_image_src( $image, $size, false ) ) {
+			$src = wp_get_attachment_image_src( $image, $size, false );
+			if ( $src ) {
 				$srcset[] = "{$src[0]} {$src[1]}w {$src[2]}h";
 			}
 		}

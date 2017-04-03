@@ -12,6 +12,6 @@
 	</rule>
 	<rule ref="Wordpress-Extra">
 		<!-- This project doesnt use wordpress.com functions -->
-		<exclude name="WordPress.VIP.RestrictedFunctions.get_term_link" />
+		<exclude name="WordPress.VIP.RestrictedFunctions.get_term_link_get_term_link" />
 	</rule>
 </ruleset>

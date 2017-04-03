@@ -106,7 +106,11 @@ class MOZ_SVG {
 			$icon = $icon['icon'];
 		}
 
-		$default_attrs = $alt ? array( 'role' => 'img' ) : array( 'aria-hidden' => 'true' );
+		$default_attrs = $alt ? array(
+			'role' => 'img',
+		) : array(
+			'aria-hidden' => 'true',
+		);
 		$final_attrs   = array_merge( $default_attrs, $attrs );
 
 		$content = MOZ_Html::get_element( 'use', array(

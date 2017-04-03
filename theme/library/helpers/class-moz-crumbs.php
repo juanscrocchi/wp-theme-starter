@@ -75,7 +75,9 @@ class MOZ_Crumbs {
 						}
 
 						$tag   = 'span';
-						$attrs = array( 'class' => $classes );
+						$attrs = array(
+							'class' => $classes,
+						);
 						if ( $item['link'] && '#' !== $item['link'] ) {
 							$tag           = 'a';
 							$attrs['href'] = $item['link'];
@@ -112,8 +114,11 @@ class MOZ_Crumbs {
 		$current_item = self::get_current_crumb_item();
 		$crumbs       = array( $current_item );
 
-		if ( $current_item['id'] && ( $parents = MOZ_Menu::get_parent_menu_items( $theme_location, $current_item['id'] ) ) ) {
-			$crumbs = array_merge( self::menu_items_to_crumbs( $parents ), $crumbs );
+		if ( $current_item['id'] ) {
+			$parents = MOZ_Menu::get_parent_menu_items( $theme_location, $current_item['id'] );
+			if ( $parents ) {
+				$crumbs = array_merge( self::menu_items_to_crumbs( $parents ), $crumbs );
+			}
 		}
 
 		if ( ! is_front_page() ) {
@@ -156,7 +161,10 @@ class MOZ_Crumbs {
 	 * @return array
 	 */
 	public static function get_current_crumb_item() {
-		$item_id = $type = $url = $title = false;
+		$item_id = false;
+		$type = false;
+		$url = false;
+		$title = false;
 
 		if ( is_search() ) {
 			$url     = get_search_link();

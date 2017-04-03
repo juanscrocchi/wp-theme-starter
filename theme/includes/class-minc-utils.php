@@ -8,7 +8,7 @@
  */
 
 // Make sure this file is called by wp.
-defined( 'ABSPATH' ) or die();
+defined( 'ABSPATH' ) || die();
 
 
 
@@ -124,12 +124,19 @@ class MInc_Utils {
 		else :
 			// This content shows up if there are no widgets defined in the backend.
 			$alert_class = "{$sidebar_class}__alert";
-			$sidebar_content_html = MOZ_Html::get_element( 'div', array( 'class' => $alert_class ), __( 'Please activate some Widgets.' ) );
+			$sidebar_content_html = MOZ_Html::get_element( 'div', array(
+				'class' => $alert_class,
+			), __( 'Please activate some Widgets.' ) );
 		endif;
 
 		$panel_class = "{$sidebar_class}__panel";
-		$panel_html = MOZ_Html::get_element( 'div', array( 'class' => $panel_class ), $sidebar_content_html );
+		$panel_html = MOZ_Html::get_element( 'div', array(
+			'class' => $panel_class,
+		), $sidebar_content_html );
 
-		return MOZ_Html::get_element( 'div', array( 'class' => $container_class, 'role' => 'complementary' ), $panel_html );
+		return MOZ_Html::get_element( 'div', array(
+			'class' => $container_class,
+			'role' => 'complementary',
+		), $panel_html );
 	}
 }

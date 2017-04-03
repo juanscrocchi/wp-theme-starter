@@ -122,8 +122,11 @@ class MOZ_Link {
 	 * @return string
 	 */
 	public static function get_link( $data = null, $attrs = array(), $content = '' ) {
-		if ( ! empty( $data ) && $href = self::get_link_href( $data ) ) {
-			$attrs['href'] = $href;
+		if ( ! empty( $data ) ) {
+			$href = self::get_link_href( $data );
+			if ( $href ) {
+				$attrs['href'] = $href;
+			}
 		}
 
 		return MOZ_Html::get_element( 'a', self::add_link_target( $attrs ), $content );

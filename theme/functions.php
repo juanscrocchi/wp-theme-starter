@@ -146,7 +146,7 @@ if ( ! function_exists( 'theme_setup' ) ) {
 		include "$theme_dir/includes/includes-loader.php";
 		include "$theme_dir/components/components-loader.php";
 	}
-}
+}// End if().
 
 if ( ! function_exists( 'theme_styles' ) ) {
 	/**

@@ -12,7 +12,7 @@
  */
 
 // Make sure this file is called by wp.
-defined( 'ABSPATH' ) or die();
+defined( 'ABSPATH' ) || die();
 
 
 // Register the class autoloader for
@@ -20,9 +20,7 @@ defined( 'ABSPATH' ) or die();
 spl_autoload_register( function ( $class ) {
 	$prefix = 'MInc_';
 
-	if ( substr( $class, 0, strlen( $prefix ) ) == $prefix ) {
-		$class = substr( $class, strlen( $prefix ) );
-	} else {
+	if ( substr( $class, 0, strlen( $prefix ) ) != $prefix ) {
 		return;
 	}
 

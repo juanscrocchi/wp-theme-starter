@@ -60,7 +60,9 @@ class MOZ_Pagination {
 							}
 
 							$tag = 'span';
-							$attrs = array( 'class' => $classes );
+							$attrs = array(
+								'class' => $classes,
+							);
 							if ( false !== $item['link'] && '#' !== $item['link'] ) {
 								$tag = 'a';
 								$attrs['href'] = $item['link'];
@@ -313,8 +315,8 @@ class MOZ_Pagination {
 					);
 					$dots         = false;
 				}
-			}
-		}
+			}// End if().
+		}// End for().
 
 		// Maybe add next page link to array.
 		if ( $args['prev_next'] && $current && ( $current < $total || - 1 === $total ) ) {
