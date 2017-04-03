@@ -6,7 +6,7 @@
  */
 
 // Make sure this file is called by wp.
-defined( 'ABSPATH' ) or die();
+defined( 'ABSPATH' ) || die();
 
 ?>
 
