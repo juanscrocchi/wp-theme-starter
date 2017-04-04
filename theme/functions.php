@@ -89,6 +89,10 @@ if ( ! function_exists( 'theme_setup' ) ) {
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_print_styles', 'print_emoji_styles' );
 
+		// Remove api.w.org reference in html head.
+		remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
+		remove_action( 'wp_head', 'wp_oembed_add_discovery_links', 10 );
+
 		/* Remove toolbar for all users in front end.  */
 
 		/*
